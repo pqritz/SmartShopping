@@ -13,16 +13,13 @@ class Graph:
 
         self.names, self.connected_x_coords, self.xCoords, self.yCoords = self.return_graph_values()
 
-    def to_adjacency_matrix(self):
+    def to_adjacency_list(self):
         rows = []
-        inf = float('inf')
-        for i in range(0, len(self.node_list) - 1):
+        for i in range(0, len(self.node_list)):
             column = []
-            for j in range(0, len(self.node_list) - 1):
+            for j in range(0, len(self.node_list)):
                 if self.is_connected(self.node_list[i], self.node_list[j]):
-                    column.append(self.return_length(self.node_list[i], self.node_list[j]))
-                else:
-                    column.append(inf)
+                    column.append((j, self.return_length(self.node_list[i], self.node_list[j])))
             rows.append(column)
 
         return rows
@@ -93,8 +90,6 @@ class Graph:
             i += 1
 
         for i in self.node_list:
-            print(i not in from_list and i not in to_list)
-            print(from_list, to_list)
             if i not in from_list and i not in to_list:
 
                 from_list.append(self.node_list[i])
@@ -106,6 +101,8 @@ class Graph:
         G = nx.Graph()
         for i in range(len(self.node_list)):
             G.add_node(self.node_list[i])
+
+        for i in range(len(from_list)):
             G.add_edges_from([(from_list[i], to_list[i])])
 
         pos = nx.spring_layout(G)
