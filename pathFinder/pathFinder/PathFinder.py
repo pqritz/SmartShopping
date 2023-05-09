@@ -31,7 +31,7 @@ class PathFinder:
         <DONE UNTIL THIS POINT> d. For each neighbor of the current node, calculate the tentative distance from the starting node to the neighbor by adding the weight of the edge connecting the nodes to the distance of the current node.
         <DONE UNTIL THIS POINT> e. If the tentative distance is less than the current distance for the neighbor, update the neighbor's distance and add it to the priority queue with a priority equal to its tentative distance.
 
-        Once the priority queue is empty, the algorithm has found the shortest path from the starting node to all other nodes in the graph.
+        <DONE UNTIL THIS POINT> Once the priority queue is empty, the algorithm has found the shortest path from the starting node to all other nodes in the graph.
 
         To retrieve the shortest path from the starting node to the end node, backtrack from the end node to the starting node using the recorded distances and the graph data structure.
 
@@ -56,6 +56,7 @@ class PathFinder:
         tent_dist = {}
         visited = []
         prio_que = [] #prio value is equals the shortest path that is currently found
+        unedited_must_pass = must_pass
 
         for i in range(0, len(graph)):
             if i == start:
@@ -97,3 +98,30 @@ class PathFinder:
             #at the end (step b)
             if len(must_pass) <= 0:
                 break
+
+        return self.backtrack(graph, start, end, unedited_must_pass, tent_dist)
+
+    def backtrack(self, graph, start, end, must_pass, tent_dist):
+        path = [end]
+        cur_node = end
+
+        while cur_node != start:
+            neighbours, distances = self.get_neighbours(graph, cur_node)
+            min_dist = float("inf")
+            next_node = None
+
+            for i, neighbour in enumerate(neighbours):
+                if tent_dist[neighbour] + distances[i] == tent_dist[cur_node]:
+                    if neighbour in must_pass:
+                        if tent_dist[neighbour] < min_dist:
+                            min_dist = tent_dist[neighbour]
+                            next_node = neighbour
+                    else:
+
+                        if distances[i] < min_dist:
+                            min_dist = distances[i]
+                            next_node = neighbour
+            path.append(next_node)
+            cur_node = next_node
+
+        return path.reverse()
