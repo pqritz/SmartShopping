@@ -167,8 +167,6 @@ class Graph:
                                        showticklabels=False, mirror=True),
                             yaxis=dict(showgrid=False, zeroline=False, showticklabels=False, mirror=True)))
 
-        fig.show()
-
         if self.show:
             fig.show()
         return fig
