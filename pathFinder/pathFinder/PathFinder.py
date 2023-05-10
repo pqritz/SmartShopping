@@ -12,31 +12,32 @@ class PathFinder:
 
     def todoList(self):
         """
-        Define a graph data structure that represents the network topology. The graph should consist of a set of nodes and a set of edges connecting the nodes. Each edge should have a weight, which represents the cost of traversing the edge.
+        Start by initializing the distances of all nodes to infinity, except for the start node, which is set to 0.
 
-        Implement a function that initializes the graph and sets the starting node as the current node.
+        Create a priority queue to store the nodes that we need to visit next. Add the start node to the priority queue.
 
-        Define a set of must-visit nodes that the algorithm needs to include in the shortest path.
+        Create a dictionary to store the shortest path to each node, which initially contains only the start node.
 
-        Create an empty dictionary to store the tentative distance from the starting node to each node in the graph. Set the distance of the starting node to 0 and the distance of all other nodes to infinity.
+        Create a set to store the set of specified nodes that we need to pass through.
 
-        Create an empty set to store visited nodes.
+        Create a dictionary to store the shortest paths that pass through all specified nodes, which initially contains no paths.
 
-        Create a priority queue to store nodes that need to be visited. Add the starting node to the queue with a priority of 0.
+        While the priority queue is not empty, do the following:
 
-        While the priority queue is not empty, perform the following steps:
-        <DONE UNTIL THIS POINT> a. Get the node with the highest priority from the priority queue.
-        <DONE UNTIL THIS POINT> b. If the node is in the set of must-visit nodes, check if all other must-visit nodes have been visited. If not, continue to the next node with the highest priority in the queue.
-        <DONE UNTIL THIS POINT> c. Mark the current node as visited and add it to the visited set.
-        <DONE UNTIL THIS POINT> d. For each neighbor of the current node, calculate the tentative distance from the starting node to the neighbor by adding the weight of the edge connecting the nodes to the distance of the current node.
-        <DONE UNTIL THIS POINT> e. If the tentative distance is less than the current distance for the neighbor, update the neighbor's distance and add it to the priority queue with a priority equal to its tentative distance.
+        a. Pop the node with the smallest distance from the priority queue.
 
-        <DONE UNTIL THIS POINT> Once the priority queue is empty, the algorithm has found the shortest path from the starting node to all other nodes in the graph.
+        b. If the popped node is the end node and we have passed through all specified nodes, then we have found a path that satisfies the condition. Add this path to the dictionary of shortest paths that pass through all specified nodes.
 
-        To retrieve the shortest path from the starting node to the end node, backtrack from the end node to the starting node using the recorded distances and the graph data structure.
+        c. If the popped node is not the end node, then consider its neighbors. For each neighbor, calculate the distance to that neighbor as the sum of the distance to the current node and the weight of the edge between them.
 
-        Return the shortest path from the starting node to the end node.
-        """
+        d. If the distance to the neighbor is less than its current distance, update the distance and add the neighbor to the priority queue.
+
+        e. If the neighbor is one of the specified nodes, remove it from the set of specified nodes.
+
+        f. If the set of specified nodes is empty, then we have passed through all specified nodes. Add the current node to the list of nodes on the current path that passes through all specified nodes, and continue exploring its neighbors.
+
+        Once the priority queue is empty, return the shortest path from the dictionary of shortest paths that pass through all specified nodes.
+                """
 
         #[(0, inf), (1, 0), (2, inf), (3, inf), (4, inf), (5, inf), (6, inf), (7, inf), (8, inf)]
 
@@ -52,11 +53,12 @@ class PathFinder:
 
         return nodes, dist
 
+
     def dijkstra(self, graph: List[List[Tuple[int, int]]], start: int, end: int, must_pass: List[int]) -> List[int]:
         tent_dist = {}
         visited = []
         prio_que = [] #prio value is equals the shortest path that is currently found
-        unedited_must_pass = must_pass
+        path = {}
 
         for i in range(0, len(graph)):
             if i == start:
@@ -71,6 +73,9 @@ class PathFinder:
             cur_node = prio_que.pop(prio_que.index((min(prio_que, key=itemgetter(1)))))
             #step c
             visited.append(cur_node)
+
+            if cur_node == end and len(must_pass) == 0:
+                path[len(path) - 1] = end
 
             #step b
             if cur_node in must_pass:
@@ -99,29 +104,4 @@ class PathFinder:
             if len(must_pass) <= 0:
                 break
 
-        return self.backtrack(graph, start, end, unedited_must_pass, tent_dist)
 
-    def backtrack(self, graph, start, end, must_pass, tent_dist):
-        path = [end]
-        cur_node = end
-
-        while cur_node != start:
-            neighbours, distances = self.get_neighbours(graph, cur_node)
-            min_dist = float("inf")
-            next_node = None
-
-            for i, neighbour in enumerate(neighbours):
-                if tent_dist[neighbour] + distances[i] == tent_dist[cur_node]:
-                    if neighbour in must_pass:
-                        if tent_dist[neighbour] < min_dist:
-                            min_dist = tent_dist[neighbour]
-                            next_node = neighbour
-                    else:
-
-                        if distances[i] < min_dist:
-                            min_dist = distances[i]
-                            next_node = neighbour
-            path.append(next_node)
-            cur_node = next_node
-
-        return path.reverse()
