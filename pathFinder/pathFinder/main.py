@@ -2,7 +2,7 @@ import PathFinder as pf
 import Graph
 
 
-graph = Graph.Graph(True)
+graph = Graph.Graph(False)
 finder = pf.PathFinder(None, None, None, None)
 
 graph_data = graph.to_adjacency_list()

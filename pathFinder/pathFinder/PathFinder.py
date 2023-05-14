@@ -12,31 +12,34 @@ class PathFinder:
 
     def todoList(self):
         """
-        Start by initializing the distances of all nodes to infinity, except for the start node, which is set to 0.
+        Create a set called remaining_must_pass containing all the must_pass nodes.
+        Initialize a dictionary called distances with the tentative distance to every point in the graph from the starting point. Set the distance to the starting point to 0 and the distance to all other points to infinity.
+        Initialize a dictionary called prev to keep track of the previous node on the shortest path to each node. Set the previous node for the starting point to None.
+        Initialize a list called visited to keep track of visited nodes. Add the starting node to the visited list.
+        While remaining_must_pass is not empty:
+        Find the must_pass node with the smallest tentative distance from the starting point. If there are multiple must_pass nodes with the same distance, choose one arbitrarily.
+        Remove the chosen must_pass node from remaining_must_pass.
+        Run Dijkstra's algorithm to find the shortest path from the starting point to the chosen must_pass node, using the distances and prev dictionaries as described in the algorithm.
+        Add all nodes on the shortest path from the starting point to the chosen must_pass node (excluding the starting point) to the visited list.
+        Run Dijkstra's algorithm to find the shortest path from the last chosen must_pass node to the end node, using the distances and prev dictionaries as described in the algorithm.
+        Add all nodes on the shortest path from the last chosen must_pass node to the end node (including the end node) to the visited list.
+        If the visited list contains all the must_pass nodes and the end node, return the list of visited nodes as the shortest path. Otherwise, return that there is no path that passes through all the must_pass nodes and ends at the end node.
+        Here's a step-by-step list of actions you can take based on this algorithm:
 
-        Create a priority queue to store the nodes that we need to visit next. Add the start node to the priority queue.
-
-        Create a dictionary to store the shortest path to each node, which initially contains only the start node.
-
-        Create a set to store the set of specified nodes that we need to pass through.
-
-        Create a dictionary to store the shortest paths that pass through all specified nodes, which initially contains no paths.
-
-        While the priority queue is not empty, do the following:
-
-        a. Pop the node with the smallest distance from the priority queue.
-
-        b. If the popped node is the end node and we have passed through all specified nodes, then we have found a path that satisfies the condition. Add this path to the dictionary of shortest paths that pass through all specified nodes.
-
-        c. If the popped node is not the end node, then consider its neighbors. For each neighbor, calculate the distance to that neighbor as the sum of the distance to the current node and the weight of the edge between them.
-
-        d. If the distance to the neighbor is less than its current distance, update the distance and add the neighbor to the priority queue.
-
-        e. If the neighbor is one of the specified nodes, remove it from the set of specified nodes.
-
-        f. If the set of specified nodes is empty, then we have passed through all specified nodes. Add the current node to the list of nodes on the current path that passes through all specified nodes, and continue exploring its neighbors.
-
-        Once the priority queue is empty, return the shortest path from the dictionary of shortest paths that pass through all specified nodes.
+        Initialize remaining_must_pass with all the must_pass nodes.
+        Initialize distances with the tentative distance to every point in the graph from the starting point.
+        Initialize prev with the previous node on the shortest path to each node.
+        Initialize visited with the starting node.
+        While remaining_must_pass is not empty:
+        Find the must_pass node with the smallest tentative distance from the starting point. If there are multiple must_pass nodes with the same distance, choose one arbitrarily.
+        Remove the chosen must_pass node from remaining_must_pass.
+        Initialize distances and prev dictionaries for running Dijkstra's algorithm from the starting point to the chosen must_pass node.
+        Run Dijkstra's algorithm to find the shortest path from the starting point to the chosen must_pass node.
+        Update visited with all nodes on the shortest path from the starting point to the chosen must_pass node (excluding the starting point).
+        Initialize distances and prev dictionaries for running Dijkstra's algorithm from the last chosen must_pass node to the end node.
+        Run Dijkstra's algorithm to find the shortest path from the last chosen must_pass node to the end node.
+        Update visited with all nodes on the shortest path from the last chosen must_pass node to the end node (including the end node).
+        If visited contains all the must_pass nodes and the end node, return visited as the shortest path. Otherwise, return
                 """
 
         #[(0, inf), (1, 0), (2, inf), (3, inf), (4, inf), (5, inf), (6, inf), (7, inf), (8, inf)]
@@ -58,7 +61,7 @@ class PathFinder:
         tent_dist = {}
         visited = []
         prio_que = [] #prio value is equals the shortest path that is currently found
-        path = {}
+        unedited_must_pass = must_pass
 
         for i in range(0, len(graph)):
             if i == start:
@@ -73,9 +76,6 @@ class PathFinder:
             cur_node = prio_que.pop(prio_que.index((min(prio_que, key=itemgetter(1)))))
             #step c
             visited.append(cur_node)
-
-            if cur_node == end and len(must_pass) == 0:
-                path[len(path) - 1] = end
 
             #step b
             if cur_node in must_pass:
@@ -104,4 +104,45 @@ class PathFinder:
             if len(must_pass) <= 0:
                 break
 
+        return self.backtrack(graph, start, end, unedited_must_pass, tent_dist)
 
+    def backtrack(self, graph, start, end, must_pass, tent_dist):
+        path = [end]
+        cur_node = end
+        visited = []
+
+        while cur_node != start:
+            neighbours, distances = self.get_neighbours(graph, cur_node)
+            min_dist = float("inf")
+            next_node = None
+
+            if all(node in visited for node in neighbours):
+                for i, neighbour in enumerate(neighbours):
+                    if tent_dist[neighbour] + distances[i] == tent_dist[cur_node]:
+                        if neighbour in must_pass:
+                            if tent_dist[neighbour] < min_dist:
+                                min_dist = tent_dist[neighbour]
+                                next_node = neighbour
+                        else:
+                            if distances[i] < min_dist:
+                                min_dist = distances[i]
+                                next_node = neighbour
+            else:
+                for i, neighbour in enumerate(neighbours):
+                    if neighbour in visited:
+                        continue
+                    if tent_dist[neighbour] + distances[i] == tent_dist[cur_node]:
+                        if neighbour in must_pass:
+                            if tent_dist[neighbour] < min_dist:
+                                min_dist = tent_dist[neighbour]
+                                next_node = neighbour
+                        else:
+                            if distances[i] < min_dist:
+                                min_dist = distances[i]
+                                next_node = neighbour
+
+            path.append(next_node)
+            visited.append(cur_node)
+            cur_node = next_node
+
+        return path.reverse()
