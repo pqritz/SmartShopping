@@ -170,3 +170,43 @@ class Graph:
         if self.show:
             fig.show()
         return fig
+
+
+
+
+
+
+
+        """
+    def calc_tent(self, graph: List[List[Tuple[int, int]]], start: int):
+        tent_dist = self.write_tent(graph, start)
+        visited = []
+        prio_que = [] #prio value is equals the shortest path that is currently found
+        prio_que.append((start, 0))
+
+        while len(prio_que) > 0:
+            #step a
+            cur_node = prio_que.pop(prio_que.index((min(prio_que, key=itemgetter(1)))))
+            #step c
+            visited.append(cur_node)
+
+            #step d
+            cur_node_tent = tent_dist[cur_node[0]]
+            neighbours, distances = self.get_neighbours(graph, cur_node[0])
+
+            for i, neighbour in enumerate(neighbours):
+                dist = distances[i]
+                new_tent = cur_node_tent + dist
+                if new_tent < tent_dist[neighbour]:
+                    tent_dist[neighbour] = new_tent
+
+                    if neighbour not in [item[0] for item in prio_que]:
+                        prio_que.append((neighbour, new_tent))
+                    else:
+                        for i, item in enumerate(prio_que):
+                            if item[0] == neighbour:
+                                prio_que[i] = (neighbour, new_tent)
+                                break
+
+        return tent_dist
+        """
