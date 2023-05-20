@@ -10,40 +10,6 @@ class PathFinder:
         self.end = end
         self.pass_through = pass_through
 
-    def todoList(self):
-        """
-        Create a set called remaining_must_pass containing all the must_pass nodes.
-        Initialize a dictionary called distances with the tentative distance to every point in the graph from the starting point. Set the distance to the starting point to 0 and the distance to all other points to infinity.
-        Initialize a dictionary called prev to keep track of the previous node on the shortest path to each node. Set the previous node for the starting point to None.
-        Initialize a list called visited to keep track of visited nodes. Add the starting node to the visited list.
-        While remaining_must_pass is not empty:
-        Find the must_pass node with the smallest tentative distance from the starting point. If there are multiple must_pass nodes with the same distance, choose one arbitrarily.
-        Remove the chosen must_pass node from remaining_must_pass.
-        Run Dijkstra's algorithm to find the shortest path from the starting point to the chosen must_pass node, using the distances and prev dictionaries as described in the algorithm.
-        Add all nodes on the shortest path from the starting point to the chosen must_pass node (excluding the starting point) to the visited list.
-        Run Dijkstra's algorithm to find the shortest path from the last chosen must_pass node to the end node, using the distances and prev dictionaries as described in the algorithm.
-        Add all nodes on the shortest path from the last chosen must_pass node to the end node (including the end node) to the visited list.
-        If the visited list contains all the must_pass nodes and the end node, return the list of visited nodes as the shortest path. Otherwise, return that there is no path that passes through all the must_pass nodes and ends at the end node.
-        Here's a step-by-step list of actions you can take based on this algorithm:
-
-        Initialize remaining_must_pass with all the must_pass nodes.
-        Initialize distances with the tentative distance to every point in the graph from the starting point.
-        Initialize prev with the previous node on the shortest path to each node.
-        Initialize visited with the starting node.
-        While remaining_must_pass is not empty:
-        Find the must_pass node with the smallest tentative distance from the starting point. If there are multiple must_pass nodes with the same distance, choose one arbitrarily.
-        Remove the chosen must_pass node from remaining_must_pass.
-        Initialize distances and prev dictionaries for running Dijkstra's algorithm from the starting point to the chosen must_pass node.
-        Run Dijkstra's algorithm to find the shortest path from the starting point to the chosen must_pass node.
-        Update visited with all nodes on the shortest path from the starting point to the chosen must_pass node (excluding the starting point).
-        Initialize distances and prev dictionaries for running Dijkstra's algorithm from the last chosen must_pass node to the end node.
-        Run Dijkstra's algorithm to find the shortest path from the last chosen must_pass node to the end node.
-        Update visited with all nodes on the shortest path from the last chosen must_pass node to the end node (including the end node).
-        If visited contains all the must_pass nodes and the end node, return visited as the shortest path. Otherwise, return
-                """
-
-        #[(0, inf), (1, 0), (2, inf), (3, inf), (4, inf), (5, inf), (6, inf), (7, inf), (8, inf)]
-
     def get_neighbours(self, graph, nodeIndex):
         node = graph[nodeIndex]
         nodes = []
@@ -57,13 +23,8 @@ class PathFinder:
         return nodes, dist
 
     def write_tent(self, graph, start):
-        tent_dist = {}
-        for i in range(0, len(graph)):
-            if i == start:
-                tent_dist[i] = 0
-                continue
-            tent_dist[i] = float("inf")
-
+        tent_dist = {i: [float('inf')] for i in range(0, len(graph))}
+        tent_dist[start] = [0]
         return tent_dist
 
     def find_shortest_with_must_pass(self, graph, start, end, must_pass: List[int]):
@@ -131,10 +92,8 @@ class PathFinder:
     def calc_tent_with_path(self, graph, start, end):
         path = [start]
         visited = []
-        tent_dist = {i: [float('inf')] for i in range(0, len(graph))}
-        tent_dist[start] = [0]
+        tent_dist = self.write_tent(start)
         cur_node = start
-        print(start, end)
 
         while cur_node != end:
             visited.append(cur_node)

@@ -7,7 +7,7 @@ import math
 class Graph:
 
     def __init__(self, show_fig):
-        self.node_list = ["A","B","C","D","E","F","G","H","I"]
+        self.node_list = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
         self.show = show_fig
         self.fig = self.functionality()
 
@@ -65,7 +65,8 @@ class Graph:
 
         distance = math.sqrt(((p1[0] - p2[0]) ** 2) + ((p1[1] - p2[1]) ** 2))
 
-        return distance * math.pow(10, len(str(distance)))
+
+        return distance
 
     def draw_number(self, length):
         """determines a random index number for selection."""
@@ -79,7 +80,7 @@ class Graph:
 
         from_list = []
         to_list = []
-        counter = 20
+        counter = 50
         i = 0
         while i < counter:
             from_index, to_index = self.draw_number(len(self.node_list) - 1)
@@ -89,8 +90,8 @@ class Graph:
             to_list.append(self.node_list[to_index])
             i += 1
 
-        for i in self.node_list:
-            if i not in from_list and i not in to_list:
+        for i, value in enumerate(self.node_list):
+            if value not in from_list and value not in to_list:
 
                 from_list.append(self.node_list[i])
                 if i == len(self.node_list) - 1:
@@ -170,43 +171,3 @@ class Graph:
         if self.show:
             fig.show()
         return fig
-
-
-
-
-
-
-
-        """
-    def calc_tent(self, graph: List[List[Tuple[int, int]]], start: int):
-        tent_dist = self.write_tent(graph, start)
-        visited = []
-        prio_que = [] #prio value is equals the shortest path that is currently found
-        prio_que.append((start, 0))
-
-        while len(prio_que) > 0:
-            #step a
-            cur_node = prio_que.pop(prio_que.index((min(prio_que, key=itemgetter(1)))))
-            #step c
-            visited.append(cur_node)
-
-            #step d
-            cur_node_tent = tent_dist[cur_node[0]]
-            neighbours, distances = self.get_neighbours(graph, cur_node[0])
-
-            for i, neighbour in enumerate(neighbours):
-                dist = distances[i]
-                new_tent = cur_node_tent + dist
-                if new_tent < tent_dist[neighbour]:
-                    tent_dist[neighbour] = new_tent
-
-                    if neighbour not in [item[0] for item in prio_que]:
-                        prio_que.append((neighbour, new_tent))
-                    else:
-                        for i, item in enumerate(prio_que):
-                            if item[0] == neighbour:
-                                prio_que[i] = (neighbour, new_tent)
-                                break
-
-        return tent_dist
-        """
