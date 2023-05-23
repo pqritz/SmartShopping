@@ -11,7 +11,7 @@ class SPAMB:
         self.must_pass = must_pass
 
         list = ['A', 'B' ,'C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
-        path = self.dijkstra(graph, start, end)
+        path = self.SPAMB(graph, start, end, must_pass)
 
         for i in path:
             print(list[i])
@@ -62,7 +62,6 @@ class SPAMB:
             else:
                 next_destinations = {node: shortest_paths[node] for node in shortest_paths if node not in visited}
             if not next_destinations:
-                print("here")
                 return "Route Not Possible"
             # next node is the destination with the lowest weight
             cur_node = min(next_destinations, key=lambda k: next_destinations[k][1])
@@ -72,10 +71,10 @@ class SPAMB:
 
     def dijkstra(self, graph, start, end):
         shortest_paths = self.calc_tent(graph, start)
+        print(shortest_paths)
         cur_node = end
         path = []
         while cur_node is not None:
-            print(shortest_paths[cur_node][0])
             path.append(cur_node)
             next_node = shortest_paths[cur_node][0]
             cur_node = next_node
@@ -83,5 +82,33 @@ class SPAMB:
         path = path[::-1]
         return path
 
+    def SPAMB(self, graph, start, end, must_pass):
+        paths = [start]
+        cur_node = start
+        visited = []
+        outer_must_pass = must_pass.copy()
 
+        while cur_node != end:
+            visited.append(cur_node)
+            tent_dist = self.calc_tent(graph, start)
+            if must_pass:
+                for i in list(tent_dist):
+                    if not i in must_pass:
+                        del tent_dist[i]
+            else:
+                for i in list(tent_dist):
+                    if not i is end:
+                        del tent_dist[i]
 
+            next_node = min(tent_dist, key=lambda k: tent_dist[k][1])
+            path_to_next = self.dijkstra(graph, cur_node, next_node)
+            del path_to_next[0]
+
+            paths.extend(path_to_next)
+
+            if next_node in must_pass:
+                must_pass.pop(must_pass.index(next_node))
+
+            cur_node = next_node
+
+        return paths
