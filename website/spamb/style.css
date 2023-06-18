@@ -11,39 +11,21 @@ body {
     font-size: 16px;
     line-height: 1.5;
     color: #333;
+    background-color: #F8F5FA;
 }
 
-a {
-    text-decoration: none;
-    color: #333;
+.nav_bar {
+        text-decoration: none;
+    color: #FFF;
 }
 
-ul {
-    list-style: none;
-}
-
-/* Reset Styles */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-/* Global Styles */
-body {
-    font-family: Arial, sans-serif;
-    font-size: 16px;
-    line-height: 1.5;
-    color: #333;
-}
-
-a {
-    text-decoration: none;
-    color: #333;
+nav {
+    height: 100%;
 }
 
 ul {
     list-style: none;
+    height: 100%;
 }
 
 /* Header Styles */
@@ -51,13 +33,9 @@ header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1rem;
-    background-color: #fff;
+    border: 1rem solid ;
+    background-color: #333333;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.logo img {
-    width: 100px;
 }
 
 nav ul {
@@ -66,6 +44,7 @@ nav ul {
 
 nav ul li {
     margin-right: 1rem;
+    height: 100%;
 }
 
 nav ul li:last-child {
@@ -87,7 +66,7 @@ nav ul li a {
     justify-content: center;
     align-items: center;
     text-align: center;
-    color: #fff;
+    color: #000;
 }
 
 .hero h1 {
@@ -101,15 +80,45 @@ nav ul li a {
 }
 
 .cta-button {
-    display: inline-block;
     padding: 1rem 2rem;
-    background-color: #007bff;
-    color: #fff;
-    border-radius: 5px;
-    font-weight: bold;
-    transition: all 0.2s ease-in-out;
 }
 
-.cta
+.search-container {
+    position: relative;
+    display: inline-block;
+}
 
-/*
+#search-input {
+    padding: 10px;
+    width: 50vw;
+    height: 5vw;
+    border: 1px solid #ccc;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 100%;
+    background-color: #F8F5FA;
+}
+
+#dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+    background-color: #F8F5FA;
+    border: 1px solid #ccc;
+    border-top: none;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: none;
+}
+
+#dropdown-menu li {
+    padding: 5px;
+    cursor: pointer;
+}
+
+#dropdown-menu li:hover {
+    background-color: #f5f5f5;
+}
