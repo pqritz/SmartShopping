@@ -1,7 +1,7 @@
 import SPAMB as pf
 import Graph
 
-graph = Graph.Graph(True)
+graph = Graph.Graph(False)
 
 graph_data = graph.to_adjacency_list()
 
