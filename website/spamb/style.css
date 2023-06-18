@@ -19,6 +19,11 @@ body {
     color: #FFF;
 }
 
+a {
+    text-decoration: none;
+    color: #333;
+}
+
 nav {
     height: 100%;
 }

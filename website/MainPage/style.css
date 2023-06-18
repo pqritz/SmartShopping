@@ -11,6 +11,12 @@ body {
     font-size: 16px;
     line-height: 1.5;
     color: #333;
+    background-color: #F8F5FA;
+}
+
+.nav_bar {
+        text-decoration: none;
+    color: #FFF;
 }
 
 a {
@@ -20,6 +26,7 @@ a {
 
 ul {
     list-style: none;
+    height: 100%;
 }
 
 /* Header Styles */
@@ -27,13 +34,9 @@ header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1rem;
-    background-color: #fff;
+    border: 1rem solid ;
+    background-color: #333333;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.logo img {
-    width: 100px;
 }
 
 nav ul {
@@ -42,6 +45,7 @@ nav ul {
 
 nav ul li {
     margin-right: 1rem;
+    height: 100%;
 }
 
 nav ul li:last-child {
