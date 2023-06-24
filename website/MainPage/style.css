@@ -3,6 +3,7 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    overflow: hidden;
 }
 
 /* Global Styles */
@@ -89,3 +90,4 @@ nav ul li a {
     font-weight: bold;
     transition: all 0.2s ease-in-out;
 }
+
