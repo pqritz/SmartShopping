@@ -6,20 +6,18 @@ const fBox = document.getElementById("FunctionalityBox");
 const body = document.getElementById("bodyContainer");
 
 // Mock data for demonstration purposes
-const mockData = ['Apple', 'Banana', 'Orange', 'Grapes', 'Strawberry', 'Watermelon', 'Mango', 'Pineapple', 'Kiwi', 'Cherry', 'Peach'];
 var allStores = jsonToArray()
+console.log(allStores)
 var userLat = null;
 var userLon = null;
 
 searchInput.addEventListener('input', updateDropdownMenu);
-searchInput.addEventListener('click', showClosest);
+//searchInput.addEventListener('click', showClosest);
 document.addEventListener('click', hideDropdownMenu);
 button.addEventListener('click', function(event) {
     event.preventDefault();
     fBox.style.display = "flex"
     document.body.style.opacity = 0.8
-
-    console.log(fBox.children.length)
 
     for (let i = 0; i < fBox.children.length; i++) {
         fBox.children[i].style.display = 'initial'
@@ -39,7 +37,7 @@ function updateDropdownMenu() {
     dropdownMenu.innerHTML = '';
 
     // Filter and display up to ten results
-    const filteredResults = allStores.filter(item => item.uun.toLowerCase().includes(searchTerm.toLowerCase())).slice(0, 6);
+    const filteredResults = allStores.filter(item => item.uun.toLowerCase().includes(searchTerm.toLowerCase()));
 
 
     if (filteredResults.length === 0) {
@@ -62,8 +60,7 @@ function updateDropdownMenu() {
 
     // Show the dropdown menu
     dropdownMenu.style.display = 'block';
-    console.log(dropdownMenu[0])
-    dropdownMenu.style.height = filteredResults.length * dropdownMenu[0].offsetHeight
+    dropdownMenu.style.height = ((dropdownMenu.childNodes.length < 7) ? dropdownMenu.childNodes.length : 6) * dropdownMenu.childNodes[0].offsetHeight
 }
 
 function hideDropdownMenu() {

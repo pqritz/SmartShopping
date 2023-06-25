@@ -91,3 +91,20 @@ nav ul li a {
     transition: all 0.2s ease-in-out;
 }
 
+@media only all and (min-width:400px) and (max-width :1200px) {
+    * {
+        font-size: 20px;
+    }
+    .hero {
+        background-image: url("hero-image.jpg");
+        background-size: cover;
+        background-position: center;
+        height: 700px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        color: #000;
+    }
+}

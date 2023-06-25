@@ -1,0 +1,12 @@
+{
+    "Apple" : [
+        {
+            "uui" : "AppleBio1",
+            "id" : 1,
+            "brand" : "Bio",
+            "specialities" : [
+                "Gluten Free", "Lactose Free"
+            ]
+        }
+    ]
+}

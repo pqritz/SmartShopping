@@ -14,44 +14,8 @@
             "longitude" : "11.351046037472642"
         },
         {
-            "name" : "Lidl",
-            "uun" : "Lidl, Nuernberger Str., Altdorf bei Nuernberg",
-            "address" : "Nuernberger Str. 11, 90518 Altdorf bei Nuernberg",
-            "street" : "Nuernberger Str.",
-            "number" : "11",
-            "postal_code" : "90518",
-            "city" : "Altdorf bei Nuernberg",
-            "coords" : "49.384969247307886, 11.351046037472642",
-            "latitude" : "49.384969247307886",
-            "longitude" : "11.351046037472642"
-        },
-        {
-            "name" : "Lidl",
-            "uun" : "Lidl, Nuernberger Str., Altdorf bei Nuernberg",
-            "address" : "Nuernberger Str. 11, 90518 Altdorf bei Nuernberg",
-            "street" : "Nuernberger Str.",
-            "number" : "11",
-            "postal_code" : "90518",
-            "city" : "Altdorf bei Nuernberg",
-            "coords" : "49.384969247307886, 11.351046037472642",
-            "latitude" : "49.384969247307886",
-            "longitude" : "11.351046037472642"
-        },
-        {
-            "name" : "Lidl",
-            "uun" : "Lidl, Nuernberger Str., Altdorf bei Nuernberg",
-            "address" : "Nuernberger Str. 11, 90518 Altdorf bei Nuernberg",
-            "street" : "Nuernberger Str.",
-            "number" : "11",
-            "postal_code" : "90518",
-            "city" : "Altdorf bei Nuernberg",
-            "coords" : "49.384969247307886, 11.351046037472642",
-            "latitude" : "49.384969247307886",
-            "longitude" : "11.351046037472642"
-        },
-        {
-            "name" : "Lidl",
-            "uun" : "Lidl, Nuernberger Str., Altdorf bei Nuernberg",
+            "name" : "Rewe",
+            "uun" : "Rewe, Nuernberger Str., Altdorf bei Nuernberg",
             "address" : "Nuernberger Str. 11, 90518 Altdorf bei Nuernberg",
             "street" : "Nuernberger Str.",
             "number" : "11",
