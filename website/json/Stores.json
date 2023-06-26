@@ -11,7 +11,21 @@
             "city" : "Altdorf bei Nuernberg",
             "coords" : "49.384969247307886, 11.351046037472642",
             "latitude" : "49.384969247307886",
-            "longitude" : "11.351046037472642"
+            "longitude" : "11.351046037472642",
+            "Items"  : [
+                "Apple1FreshFarms",
+                "Apple2FreshFarms",
+                "Apple3FreshFarms",
+                "Banana1TropicalDelight",
+                "Banana2TropicalDelight",
+                "Banana3TropicalDelight",
+                "Carrot1FarmFresh",
+                "Carrot2FarmFresh",
+                "Carrot3FarmFresh",
+                "Tomato1VineRipe",
+                "Tomato2VineRipe",
+                "Tomato3VineRipe"
+            ]
         },
         {
             "name" : "Rewe",
@@ -23,7 +37,21 @@
             "city" : "Altdorf bei Nuernberg",
             "coords" : "49.384969247307886, 11.351046037472642",
             "latitude" : "49.384969247307886",
-            "longitude" : "11.351046037472642"
+            "longitude" : "11.351046037472642",
+            "Items"  : [
+                "Apple1FreshFarms",
+                "Apple2FreshFarms",
+                "Apple3FreshFarms",
+                "Banana1TropicalDelight",
+                "Banana2TropicalDelight",
+                "Banana3TropicalDelight",
+                "Carrot1FarmFresh",
+                "Carrot2FarmFresh",
+                "Carrot3FarmFresh",
+                "Tomato1VineRipe",
+                "Tomato2VineRipe",
+                "Tomato3VineRipe"
+            ]
         }
     ]
 }

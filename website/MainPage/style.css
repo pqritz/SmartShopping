@@ -57,6 +57,10 @@ nav ul li a {
     font-weight: bold;
 }
 
+.logo {
+    width: unset;
+}
+
 /* Hero Section Styles */
 .hero {
     background-image: url("hero-image.jpg");
