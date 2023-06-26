@@ -4,17 +4,17 @@ const addItemMenu = document.getElementById("add-item-container");
 const button = document.getElementById("cta-button");
 const fBox = document.getElementById("FunctionalityBox");
 const body = document.getElementById("bodyContainer");
+const itemList = document.getElementById("items")
 
 // Mock data for demonstration purposes
 var allStores = jsonToArray()
-console.log(allStores)
 var userLat = null;
 var userLon = null;
 
 searchInput.addEventListener('input', updateDropdownMenu);
 //searchInput.addEventListener('click', showClosest);
 document.addEventListener('click', hideDropdownMenu);
-button.addEventListener('click', function(event) {
+button.addEventListener('click', function (event) {
     event.preventDefault();
     fBox.style.display = "flex"
     document.body.style.opacity = 0.8
@@ -52,6 +52,7 @@ function updateDropdownMenu() {
             li.textContent = result;
             li.addEventListener('click', () => {
                 searchInput.value = result;
+                updateItemMenu(searchInput.value)
                 hideDropdownMenu();
             });
             dropdownMenu.appendChild(li);
@@ -89,7 +90,7 @@ function showPosition(position) {
 
 function jsonToArray() {
     var storesFromArray = []
-    fetch("../json/Stores.json").then(Response => Response.json())
+    getJson().then(Response => Response.json())
         .then(data => {
             data.Stores.forEach(element => {
                 var newStore = {}
@@ -101,4 +102,75 @@ function jsonToArray() {
             });
         });
     return storesFromArray
+}
+
+function getJson() {
+    return fetch("../json/Stores.json");
+}
+
+async function updateItemMenu(StoreUUN) {
+    while (itemList.firstChild) {
+        itemList.removeChild(firstChild)
+    }
+    StoreUUN = "Lidl, Nuernberger Str., Altdorf bei Nuernberg"
+    grocery = await getGrocery(StoreUUN)
+    if (grocery === null) {
+        return
+    }
+    grocery.forEach(result => {
+        const ul = document.createElement('ul');
+        ul.textContent = result;
+        ul.addEventListener('click', () => {
+            const li = document.createElement('li');
+            const button = document.createElement('button')
+
+            button.textContent = "+"
+            button.className = "itemListButton"
+
+            ul.appendChild(li)
+            li.textContent = "Testing"
+            li.appendChild(button)
+        });
+        itemList.appendChild(ul);
+    });
+
+}
+
+async function getGroceryUniqueIdentifier(StoreUUN) {
+    try {
+        const response = await getJson();
+        const data = await response.json();
+        const store = data.Stores.find(element => StoreUUN.toLowerCase() === element.uun.toLowerCase());
+        if (store) {
+            return store.items;
+        }
+        return undefined;
+    } catch (error) {
+        console.error(error);
+        return undefined;
+    }
+}
+
+async function getGrocery(StoreUUN) {
+    const regex = /^[^0-9]*/;
+    var newGrocery = [];
+
+    try {
+        const grocery = await getGroceryUniqueIdentifier(StoreUUN);
+        if (grocery === undefined) {
+            return;
+        }
+
+        grocery.forEach(element => {
+            const newString = element.match(regex);
+            if (newString) {
+                newGrocery.push(newString[0]);
+            }
+        });
+    } catch (error) {
+        console.error(error);
+    }
+
+    const newList = Array.from(new Set(newGrocery));
+    return newList;
 }

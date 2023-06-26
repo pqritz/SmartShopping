@@ -12,7 +12,7 @@
             "coords" : "49.384969247307886, 11.351046037472642",
             "latitude" : "49.384969247307886",
             "longitude" : "11.351046037472642",
-            "Items"  : [
+            "items"  : [
                 "Apple1FreshFarms",
                 "Apple2FreshFarms",
                 "Apple3FreshFarms",
@@ -38,7 +38,7 @@
             "coords" : "49.384969247307886, 11.351046037472642",
             "latitude" : "49.384969247307886",
             "longitude" : "11.351046037472642",
-            "Items"  : [
+            "items"  : [
                 "Apple1FreshFarms",
                 "Apple2FreshFarms",
                 "Apple3FreshFarms",

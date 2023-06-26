@@ -15,7 +15,7 @@ body {
 }
 
 .nav_bar {
-        text-decoration: none;
+    text-decoration: none;
     color: #FFF;
 }
 
@@ -38,7 +38,7 @@ header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border: 1rem solid ;
+    border: 1rem solid;
     background-color: #333333;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -108,7 +108,7 @@ nav ul li a {
     height: 100%;
     border: 0px solid #ccc;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 100%;
+    font-size: 20px;
     background-color: #F8F5FA;
 }
 
@@ -127,6 +127,7 @@ nav ul li a {
     margin: 0;
     display: none;
     font-size: 20px;
+
 }
 
 #dropdown-menu li {
@@ -141,7 +142,7 @@ nav ul li a {
 
 /*Functionality Screen*/
 
-.FunctionalityBox > * {
+.FunctionalityBox>* {
     display: none;
 }
 
@@ -164,7 +165,7 @@ nav ul li a {
     height: 70vw;
     background-color: whitesmoke;
 
-    
+
     z-index: 1;
     transform: translate(40%, 30%);
     border-radius: 7%;
@@ -175,10 +176,50 @@ nav ul li a {
 
 }
 
+.itemListButton {
+    position: absolute;
+    right: 3%;
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    box-sizing: border-box;
+    line-height: 1;
+    
+}
+
+.itemListButton:hover {
+    background-color: #45a049;
+}
+
+#items {
+    width: 95%;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 2%;
+    list-style-type: none;
+}
+
+#items ul {
+    height: fit-content;
+    padding: 1%;
+    cursor: pointer;
+    font-size: 25px;
+
+}
+
 @media only all and (min-width:400px) and (max-width :1200px) {
     * {
         font-size: 20px;
     }
+
     .hero {
         background-image: url("hero-image.jpg");
         background-size: cover;
@@ -191,25 +232,26 @@ nav ul li a {
         text-align: center;
         color: #000;
     }
+
     .FunctionalityBox {
         display: none;
         opacity: 100%;
         pointer-events: all;
-    
+
         position: absolute;
         width: 80vw;
         height: 100vw;
         background-color: whitesmoke;
-    
-        
+
+
         z-index: 1;
         transform: translate(15%, 20%);
         border-radius: 7%;
         box-shadow: 0 0 50px rgba(0, 0, 0, 0.2);
-    
+
         flex-direction: column;
         align-items: center;
-    
+
     }
 
     #search-input {
@@ -226,5 +268,21 @@ nav ul li a {
         padding: 5px;
         cursor: pointer;
         font-size: 25px;
+    }
+
+    #items {
+        width: 95%;
+        margin-left: 5%;
+        margin-right: 5%;
+        margin-top: 2%;
+        list-style-type: none;
+    }
+
+    #items ul {
+        height: fit-content;
+        padding: 1%;
+        cursor: pointer;
+        font-size: 25px;
+
     }
 }
