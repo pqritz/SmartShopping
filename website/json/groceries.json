@@ -1,142 +1,153 @@
 {
-    "grocery": [
-      {
-        "ItemName": "Apple",
-        "Varieties": [
-          {
-            "Brand": "FreshFarms",
-            "id": "1",
-            "uniqueIdentifier": "Apple1FreshFarms",
-            "data": [
-              "Lactose-free",
-              "Gluten-free",
-              "Natural",
-              "No chemical additives"
-            ]
-          },
-          {
-            "Brand": "FreshFarms",
-            "id": "2",
-            "uniqueIdentifier": "Apple2FreshFarms",
-            "data": [
-              "Organic",
-              "Non-GMO",
-              "Locally sourced"
-            ]
-          },
-          {
-            "Brand": "FreshFarms",
-            "id": "3",
-            "uniqueIdentifier": "Apple3FreshFarms",
-            "data": [
-              "Sugar-free",
-              "Low sodium",
-              "No artificial flavors"
-            ]
-          }
-        ]
-      },
-      {
-        "ItemName": "Banana",
-        "Varieties": [
-          {
-            "Brand": "TropicalDelight",
-            "id": "1",
-            "uniqueIdentifier": "Banana1TropicalDelight",
-            "data": [
-              "Gluten-free",
-              "No preservatives",
-              "Ethically sourced"
-            ]
-          },
-          {
-            "Brand": "TropicalDelight",
-            "id": "2",
-            "uniqueIdentifier": "Banana2TropicalDelight",
-            "data": [
-              "Vegan",
-              "Sustainably grown"
-            ]
-          },
-          {
-            "Brand": "TropicalDelight",
-            "id": "3",
-            "uniqueIdentifier": "Banana3TropicalDelight",
-            "data": [
-              "Rich in potassium",
-              "Great for smoothies"
-            ]
-          }
-        ]
-      },
-      {
-        "ItemName": "Carrot",
-        "Varieties": [
-          {
-            "Brand": "FarmFresh",
-            "id": "1",
-            "uniqueIdentifier": "Carrot1FarmFresh",
-            "data": [
-              "Organic",
-              "Locally sourced",
-              "High in vitamin A"
-            ]
-          },
-          {
-            "Brand": "FarmFresh",
-            "id": "2",
-            "uniqueIdentifier": "Carrot2FarmFresh",
-            "data": [
-              "Fresh",
-              "No chemical pesticides"
-            ]
-          },
-          {
-            "Brand": "FarmFresh",
-            "id": "3",
-            "uniqueIdentifier": "Carrot3FarmFresh",
-            "data": [
-              "Crunchy",
-              "Great for salads"
-            ]
-          }
-        ]
-      },
-      {
-        "ItemName": "Tomato",
-        "Varieties": [
-          {
-            "Brand": "VineRipe",
-            "id": "1",
-            "uniqueIdentifier": "Tomato1VineRipe",
-            "data": [
-              "Vine-ripened",
-              "Juicy",
-              "Ideal for sauces"
-            ]
-          },
-          {
-            "Brand": "VineRipe",
-            "id": "2",
-            "uniqueIdentifier": "Tomato2VineRipe",
-            "data": [
-              "Organic",
-              "Non-GMO",
-              "Locally sourced"
-            ]
-          },
-          {
-            "Brand": "VineRipe",
-            "id": "3",
-            "uniqueIdentifier": "Tomato3VineRipe",
-            "data": [
-              "Sugar-free",
-              "Low sodium",
-              "No artificial flavors"
-            ]
-          }
-        ]
-      }
-    ]
-  }
-  
+  "grocery": [
+    {
+      "ItemName": "Apple",
+      "Varieties": [
+        {
+          "Brand": "FreshFarms",
+          "id": "1",
+          "uniqueIdentifier": "Apple1FreshFarms",
+          "data": [
+            "Lactose-free",
+            "Gluten-free",
+            "Natural",
+            "No chemical additives"
+          ],
+          "nutriScore": "A"
+        },
+        {
+          "Brand": "FreshFarms",
+          "id": "2",
+          "uniqueIdentifier": "Apple2FreshFarms",
+          "data": [
+            "Organic",
+            "Non-GMO",
+            "Locally sourced"
+          ],
+          "nutriScore": "B"
+        },
+        {
+          "Brand": "FreshFarms",
+          "id": "3",
+          "uniqueIdentifier": "Apple3FreshFarms",
+          "data": [
+            "Sugar-free",
+            "Low sodium",
+            "No artificial flavors"
+          ],
+          "nutriScore": "C"
+        }
+      ]
+    },
+    {
+      "ItemName": "Banana",
+      "Varieties": [
+        {
+          "Brand": "TropicalDelight",
+          "id": "1",
+          "uniqueIdentifier": "Banana1TropicalDelight",
+          "data": [
+            "Gluten-free",
+            "No preservatives",
+            "Ethically sourced"
+          ],
+          "nutriScore": "B"
+        },
+        {
+          "Brand": "TropicalDelight",
+          "id": "2",
+          "uniqueIdentifier": "Banana2TropicalDelight",
+          "data": [
+            "Vegan",
+            "Sustainably grown"
+          ],
+          "nutriScore": "C"
+        },
+        {
+          "Brand": "TropicalDelight",
+          "id": "3",
+          "uniqueIdentifier": "Banana3TropicalDelight",
+          "data": [
+            "Rich in potassium",
+            "Great for smoothies"
+          ],
+          "nutriScore": "A"
+        }
+      ]
+    },
+    {
+      "ItemName": "Carrot",
+      "Varieties": [
+        {
+          "Brand": "FarmFresh",
+          "id": "1",
+          "uniqueIdentifier": "Carrot1FarmFresh",
+          "data": [
+            "Organic",
+            "Locally sourced",
+            "High in vitamin A"
+          ],
+          "nutriScore": "A"
+        },
+        {
+          "Brand": "FarmFresh",
+          "id": "2",
+          "uniqueIdentifier": "Carrot2FarmFresh",
+          "data": [
+            "Fresh",
+            "No chemical pesticides"
+          ],
+          "nutriScore": "B"
+        },
+        {
+          "Brand": "FarmFresh",
+          "id": "3",
+          "uniqueIdentifier": "Carrot3FarmFresh",
+          "data": [
+            "Crunchy",
+            "Great for salads"
+          ],
+          "nutriScore": "C"
+        }
+      ]
+    },
+    {
+      "ItemName": "Tomato",
+      "Varieties": [
+        {
+          "Brand": "VineRipe",
+          "id": "1",
+          "uniqueIdentifier": "Tomato1VineRipe",
+          "data": [
+            "Vine-ripened",
+            "Juicy",
+            "Ideal for sauces"
+          ],
+          "nutriScore": "B"
+        },
+        {
+          "Brand": "VineRipe",
+          "id": "2",
+          "uniqueIdentifier": "Tomato2VineRipe",
+          "data": [
+            "Organic",
+            "Non-GMO",
+            "Locally sourced"
+          ],
+          "nutriScore": "A"
+        },
+        {
+          "Brand": "VineRipe",
+          "id": "3",
+          "uniqueIdentifier": "Tomato3VineRipe",
+          "data": [
+            "Sugar-free",
+            "Low sodium",
+            "No artificial flavors"
+          ],
+          "nutriScore": "C"
+        }
+      ]
+    }
+  ]
+}

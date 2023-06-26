@@ -110,7 +110,7 @@ function getJson() {
 
 async function updateItemMenu(StoreUUN) {
     while (itemList.firstChild) {
-        itemList.removeChild(firstChild)
+        itemList.removeChild(itemList.firstChild)
     }
     StoreUUN = "Lidl, Nuernberger Str., Altdorf bei Nuernberg"
     grocery = await getGrocery(StoreUUN)
@@ -121,19 +121,44 @@ async function updateItemMenu(StoreUUN) {
         const ul = document.createElement('ul');
         ul.textContent = result;
         ul.addEventListener('click', () => {
-            const li = document.createElement('li');
-            const button = document.createElement('button')
+            liElements = ul.querySelectorAll('li')
+            
+            hideOtherMenus(ul)
 
-            button.textContent = "+"
-            button.className = "itemListButton"
+            liElements.forEach(li => {
+                ul.removeChild(li)
+            })
 
-            ul.appendChild(li)
-            li.textContent = "Testing"
-            li.appendChild(button)
+            fullGrocery = getGroceryTypes(ul.textContent)
+            console.log(fullGrocery)
+
+            fullGrocery.forEach(element => {
+                const li = document.createElement('li');
+                const button = document.createElement('button')
+    
+                button.textContent = "+"
+                button.className = "itemListButton"
+    
+                li.textContent = element[0]
+                li.appendChild(button)
+                ul.appendChild(li)
+            })
         });
         itemList.appendChild(ul);
     });
 
+}
+
+function hideOtherMenus(ul) {
+
+    itemList.childNodes.forEach(element => {
+        if(element !== ul) {
+            liElement = element.querySelectorAll('li')
+            liElement.forEach(li => {
+                element.removeChild(li)
+            })
+        }
+    })
 }
 
 async function getGroceryUniqueIdentifier(StoreUUN) {
@@ -174,3 +199,29 @@ async function getGrocery(StoreUUN) {
     const newList = Array.from(new Set(newGrocery));
     return newList;
 }
+
+async function getGroceryTypes(grocery) {
+    try {
+      const response = await fetch("../json/groceries.json");
+      const data = await response.json();
+  
+      const list = [];
+      data.grocery.forEach((element) => {
+        if (element.ItemName.toLowerCase() === grocery.toLowerCase()) {
+          element.Varieties.forEach((variety) => {
+            const item = [];
+            item.push(variety.Brand);
+            item.push(variety.nutriScore);
+            item.push(variety.data);
+            list.push(item);
+          });
+        }
+      });
+  
+      return list;
+    } catch (error) {
+      console.error(error);
+      return []; // Return an empty array in case of an error
+    }
+  }
+  
