@@ -192,6 +192,7 @@ nav ul li a {
     cursor: pointer;
     box-sizing: border-box;
     line-height: 1;
+
     
 }
 
@@ -213,6 +214,11 @@ nav ul li a {
     cursor: pointer;
     font-size: 25px;
 
+}
+
+.groceryBrands {
+    margin-left: 5%;
+    margin-top: 1%;
 }
 
 @media only all and (min-width:400px) and (max-width :1200px) {
@@ -276,6 +282,8 @@ nav ul li a {
         margin-right: 5%;
         margin-top: 2%;
         list-style-type: none;
+        overflow: auto;
+        max-height: 80%;
     }
 
     #items ul {
@@ -283,6 +291,11 @@ nav ul li a {
         padding: 1%;
         cursor: pointer;
         font-size: 25px;
+        position: relative;
+    }
 
+    .groceryBrands {
+        margin-left: 5%;
+        margin-top: 2%;
     }
 }

@@ -1,41 +1,67 @@
 {
   "grocery": [
     {
-      "ItemName": "Apple",
+      "ItemName": "Pear",
       "Varieties": [
         {
-          "Brand": "FreshFarms",
+          "Brand": "HarvestFresh",
           "id": "1",
-          "uniqueIdentifier": "Apple1FreshFarms",
-          "data": [
-            "Lactose-free",
-            "Gluten-free",
-            "Natural",
-            "No chemical additives"
-          ],
-          "nutriScore": "A"
-        },
-        {
-          "Brand": "FreshFarms",
-          "id": "2",
-          "uniqueIdentifier": "Apple2FreshFarms",
+          "uniqueIdentifier": "Pear1HarvestFresh",
           "data": [
             "Organic",
-            "Non-GMO",
-            "Locally sourced"
-          ],
-          "nutriScore": "B"
+            "Juicy",
+            "Sweet flavor"
+          ]
         },
         {
-          "Brand": "FreshFarms",
-          "id": "3",
-          "uniqueIdentifier": "Apple3FreshFarms",
+          "Brand": "NaturesBest",
+          "id": "2",
+          "uniqueIdentifier": "Pear2NaturesBest",
           "data": [
-            "Sugar-free",
-            "Low sodium",
-            "No artificial flavors"
-          ],
-          "nutriScore": "C"
+            "Fiber-rich",
+            "Great for snacking"
+          ]
+        },
+        {
+          "Brand": "LocalDelights",
+          "id": "3",
+          "uniqueIdentifier": "Pear3LocalDelights",
+          "data": [
+            "Locally sourced",
+            "Packed with vitamins"
+          ]
+        }
+      ]
+    },
+    {
+      "ItemName": "Orange",
+      "Varieties": [
+        {
+          "Brand": "SunshineHarvest",
+          "id": "1",
+          "uniqueIdentifier": "Orange1SunshineHarvest",
+          "data": [
+            "Zesty",
+            "Rich in vitamin C"
+          ]
+        },
+        {
+          "Brand": "CitrusDeluxe",
+          "id": "2",
+          "uniqueIdentifier": "Orange2CitrusDeluxe",
+          "data": [
+            "Seedless",
+            "Freshly picked"
+          ]
+        },
+        {
+          "Brand": "TropicalCitrus",
+          "id": "3",
+          "uniqueIdentifier": "Orange3TropicalCitrus",
+          "data": [
+            "Citrusy aroma",
+            "Perfect for juicing"
+          ]
         }
       ]
     },
@@ -47,67 +73,59 @@
           "id": "1",
           "uniqueIdentifier": "Banana1TropicalDelight",
           "data": [
-            "Gluten-free",
-            "No preservatives",
-            "Ethically sourced"
-          ],
-          "nutriScore": "B"
-        },
-        {
-          "Brand": "TropicalDelight",
-          "id": "2",
-          "uniqueIdentifier": "Banana2TropicalDelight",
-          "data": [
-            "Vegan",
-            "Sustainably grown"
-          ],
-          "nutriScore": "C"
-        },
-        {
-          "Brand": "TropicalDelight",
-          "id": "3",
-          "uniqueIdentifier": "Banana3TropicalDelight",
-          "data": [
             "Rich in potassium",
-            "Great for smoothies"
-          ],
-          "nutriScore": "A"
+            "Energy-boosting"
+          ]
+        },
+        {
+          "Brand": "FarmFresh",
+          "id": "2",
+          "uniqueIdentifier": "Banana2FarmFresh",
+          "data": [
+            "Naturally sweet",
+            "Versatile fruit"
+          ]
+        },
+        {
+          "Brand": "PremiumChoice",
+          "id": "3",
+          "uniqueIdentifier": "Banana3PremiumChoice",
+          "data": [
+            "Creamy texture",
+            "Healthy snack"
+          ]
         }
       ]
     },
     {
-      "ItemName": "Carrot",
+      "ItemName": "Apple",
       "Varieties": [
         {
-          "Brand": "FarmFresh",
+          "Brand": "CrispHarvest",
           "id": "1",
-          "uniqueIdentifier": "Carrot1FarmFresh",
+          "uniqueIdentifier": "Apple1CrispHarvest",
           "data": [
-            "Organic",
-            "Locally sourced",
-            "High in vitamin A"
-          ],
-          "nutriScore": "A"
+            "Crunchy and refreshing",
+            "High in fiber"
+          ]
         },
         {
-          "Brand": "FarmFresh",
+          "Brand": "FreshPicks",
           "id": "2",
-          "uniqueIdentifier": "Carrot2FarmFresh",
+          "uniqueIdentifier": "Apple2FreshPicks",
           "data": [
-            "Fresh",
-            "No chemical pesticides"
-          ],
-          "nutriScore": "B"
+            "Sweet and tangy",
+            "Excellent for baking"
+          ]
         },
         {
-          "Brand": "FarmFresh",
+          "Brand": "OrganicDelights",
           "id": "3",
-          "uniqueIdentifier": "Carrot3FarmFresh",
+          "uniqueIdentifier": "Apple3OrganicDelights",
           "data": [
-            "Crunchy",
-            "Great for salads"
-          ],
-          "nutriScore": "C"
+            "Certified organic",
+            "Rich in antioxidants"
+          ]
         }
       ]
     },
@@ -119,33 +137,443 @@
           "id": "1",
           "uniqueIdentifier": "Tomato1VineRipe",
           "data": [
-            "Vine-ripened",
-            "Juicy",
-            "Ideal for sauces"
-          ],
-          "nutriScore": "B"
+            "Ripe and juicy",
+            "Ideal for salads"
+          ]
         },
         {
-          "Brand": "VineRipe",
+          "Brand": "SunsetGrown",
           "id": "2",
-          "uniqueIdentifier": "Tomato2VineRipe",
+          "uniqueIdentifier": "Tomato2SunsetGrown",
           "data": [
-            "Organic",
-            "Non-GMO",
-            "Locally sourced"
-          ],
-          "nutriScore": "A"
+            "Sweet and flavorful",
+            "Perfect for sauces"
+          ]
         },
         {
-          "Brand": "VineRipe",
+          "Brand": "LocalHarvest",
           "id": "3",
-          "uniqueIdentifier": "Tomato3VineRipe",
+          "uniqueIdentifier": "Tomato3LocalHarvest",
           "data": [
-            "Sugar-free",
-            "Low sodium",
-            "No artificial flavors"
-          ],
-          "nutriScore": "C"
+            "Locally sourced",
+            "Grown with care"
+          ]
+        }
+      ]
+    },
+    {
+      "ItemName": "Lettuce",
+      "Varieties": [
+        {
+          "Brand": "FreshFields",
+          "id": "1",
+          "uniqueIdentifier": "Lettuce1FreshFields",
+          "data": [
+            "Crisp and leafy",
+            "Ideal for salads"
+          ]
+        },
+        {
+          "Brand": "GardenDeluxe",
+          "id": "2",
+          "uniqueIdentifier": "Lettuce2GardenDeluxe",
+          "data": [
+            "Grown hydroponically",
+            "Fresh and nutritious"
+          ]
+        },
+        {
+          "Brand": "OrganicLeaf",
+          "id": "3",
+          "uniqueIdentifier": "Lettuce3OrganicLeaf",
+          "data": [
+            "Certified organic",
+            "Free from pesticides"
+          ]
+        }
+      ]
+    },
+    {
+      "ItemName": "Carrot",
+      "Varieties": [
+        {
+          "Brand": "SweetHarvest",
+          "id": "1",
+          "uniqueIdentifier": "Carrot1SweetHarvest",
+          "data": [
+            "Crunchy and sweet",
+            "Packed with vitamins"
+          ]
+        },
+        {
+          "Brand": "GardenFresh",
+          "id": "2",
+          "uniqueIdentifier": "Carrot2GardenFresh",
+          "data": [
+            "Freshly harvested",
+            "Great for snacking"
+          ]
+        },
+        {
+          "Brand": "NaturalChoice",
+          "id": "3",
+          "uniqueIdentifier": "Carrot3NaturalChoice",
+          "data": [
+            "Naturally grown",
+            "Versatile vegetable"
+          ]
+        }
+      ]
+    },
+    {
+      "ItemName": "Cucumber",
+      "Varieties": [
+        {
+          "Brand": "CrispGarden",
+          "id": "1",
+          "uniqueIdentifier": "Cucumber1CrispGarden",
+          "data": [
+            "Cool and refreshing",
+            "Perfect for salads"
+          ]
+        },
+        {
+          "Brand": "FreshPicks",
+          "id": "2",
+          "uniqueIdentifier": "Cucumber2FreshPicks",
+          "data": [
+            "Crunchy texture",
+            "Hydrating and nutritious"
+          ]
+        },
+        {
+          "Brand": "OrganicHarvest",
+          "id": "3",
+          "uniqueIdentifier": "Cucumber3OrganicHarvest",
+          "data": [
+            "Organically grown",
+            "No synthetic pesticides"
+          ]
+        }
+      ]
+    },
+    {
+      "ItemName": "Broccoli",
+      "Varieties": [
+        {
+          "Brand": "GreenFields",
+          "id": "1",
+          "uniqueIdentifier": "Broccoli1GreenFields",
+          "data": [
+            "Tender and nutritious",
+            "High in vitamins"
+          ]
+        },
+        {
+          "Brand": "FreshHarvest",
+          "id": "2",
+          "uniqueIdentifier": "Broccoli2FreshHarvest",
+          "data": [
+            "Crisp and flavorful",
+            "Delicious steamed or roasted"
+          ]
+        },
+        {
+          "Brand": "NaturalChoice",
+          "id": "3",
+          "uniqueIdentifier": "Broccoli3NaturalChoice",
+          "data": [
+            "Grown without additives",
+            "Rich in antioxidants"
+          ]
+        }
+      ]
+    },
+    {
+      "ItemName": "Chips",
+      "Varieties": [
+        {
+          "Brand": "CrispDelight",
+          "id": "1",
+          "uniqueIdentifier": "Chips1CrispDelight",
+          "data": [
+            "Classic potato chips",
+            "Crunchy and savory"
+          ]
+        },
+        {
+          "Brand": "ZestyFlavors",
+          "id": "2",
+          "uniqueIdentifier": "Chips2ZestyFlavors",
+          "data": [
+            "Spicy and tangy",
+            "Perfect for snacking"
+          ]
+        },
+        {
+          "Brand": "GourmetCrunch",
+          "id": "3",
+          "uniqueIdentifier": "Chips3GourmetCrunch",
+          "data": [
+            "Artisanal chip selection",
+            "Unique and flavorful"
+          ]
+        }
+      ]
+    },
+    {
+      "ItemName": "Bread",
+      "Varieties": [
+        {
+          "Brand": "FreshLoaf",
+          "id": "1",
+          "uniqueIdentifier": "Bread1FreshLoaf",
+          "data": [
+            "Soft and fluffy",
+            "Perfect for sandwiches"
+          ]
+        },
+        {
+          "Brand": "WholeGrain",
+          "id": "2",
+          "uniqueIdentifier": "Bread2WholeGrain",
+          "data": [
+            "Nutritious and wholesome",
+            "Made with whole grains"
+          ]
+        },
+        {
+          "Brand": "ArtisanBake",
+          "id": "3",
+          "uniqueIdentifier": "Bread3ArtisanBake",
+          "data": [
+            "Handcrafted bread",
+            "Rustic and delicious"
+          ]
+        }
+      ]
+    },
+    {
+      "ItemName": "Meat",
+      "Varieties": [
+        {
+          "Brand": "PrimeCuts",
+          "id": "1",
+          "uniqueIdentifier": "Meat1PrimeCuts",
+          "data": [
+            "Premium quality",
+            "Tender and succulent"
+          ]
+        },
+        {
+          "Brand": "FarmFresh",
+          "id": "2",
+          "uniqueIdentifier": "Meat2FarmFresh",
+          "data": [
+            "Locally sourced",
+            "Humanely raised"
+          ]
+        },
+        {
+          "Brand": "GourmetSelection",
+          "id": "3",
+          "uniqueIdentifier": "Meat3GourmetSelection",
+          "data": [
+            "Exquisite flavors",
+            "Ideal for special occasions"
+          ]
+        }
+      ]
+    },
+    {
+      "ItemName": "Noodles",
+      "Varieties": [
+        {
+          "Brand": "AsianDelights",
+          "id": "1",
+          "uniqueIdentifier": "Noodles1AsianDelights",
+          "data": [
+            "Authentic Asian flavors",
+            "Quick and easy to prepare"
+          ]
+        },
+        {
+          "Brand": "ItalianClassics",
+          "id": "2",
+          "uniqueIdentifier": "Noodles2ItalianClassics",
+          "data": [
+            "Traditional Italian recipes",
+            "Al dente texture"
+          ]
+        },
+        {
+          "Brand": "HealthyChoice",
+          "id": "3",
+          "uniqueIdentifier": "Noodles3HealthyChoice",
+          "data": [
+            "Low-fat and nutritious",
+            "Variety of vegetable options"
+          ]
+        }
+      ]
+    },
+    {
+      "ItemName": "Wine",
+      "Varieties": [
+        {
+          "Brand": "VintageEstate",
+          "id": "1",
+          "uniqueIdentifier": "Wine1VintageEstate",
+          "data": [
+            "Rich and complex",
+            "Aged to perfection"
+          ]
+        },
+        {
+          "Brand": "SommelierSelection",
+          "id": "2",
+          "uniqueIdentifier": "Wine2SommelierSelection",
+          "data": [
+            "Expertly curated wines",
+            "Distinctive flavors"
+          ]
+        },
+        {
+          "Brand": "OrganicVineyard",
+          "id": "3",
+          "uniqueIdentifier": "Wine3OrganicVineyard",
+          "data": [
+            "Organically grown grapes",
+            "Sustainable winemaking practices"
+          ]
+        }
+      ]
+    },
+    {
+      "ItemName": "Beer",
+      "Varieties": [
+        {
+          "Brand": "CraftBrew",
+          "id": "1",
+          "uniqueIdentifier": "Beer1CraftBrew",
+          "data": [
+            "Small-batch production",
+            "Distinctive flavors"
+          ]
+        },
+        {
+          "Brand": "LocalBrewery",
+          "id": "2",
+          "uniqueIdentifier": "Beer2LocalBrewery",
+          "data": [
+            "Brewed in the community",
+            "Support local businesses"
+          ]
+        },
+        {
+          "Brand": "ImportedSelection",
+          "id": "3",
+          "uniqueIdentifier": "Beer3ImportedSelection",
+          "data": [
+            "Worldwide beer styles",
+            "International brews"
+          ]
+        }
+      ]
+    },
+    {
+      "ItemName": "Water",
+      "Varieties": [
+        {
+          "Brand": "NaturalSpring",
+          "id": "1",
+          "uniqueIdentifier": "Water1NaturalSpring",
+          "data": [
+            "Pristine and refreshing",
+            "Sourced from natural springs"
+          ]
+        },
+        {
+          "Brand": "Purified",
+          "id": "2",
+          "uniqueIdentifier": "Water2Purified",
+          "data": [
+            "Filtered for purity",
+            "Clean and crisp taste"
+          ]
+        },
+        {
+          "Brand": "Sparkling",
+          "id": "3",
+          "uniqueIdentifier": "Water3Sparkling",
+          "data": [
+            "Effervescent bubbles",
+            "Refreshing carbonation"
+          ]
+        }
+      ]
+    },
+    {
+      "ItemName": "Pizza",
+      "Varieties": [
+        {
+          "Brand": "ClassicMargherita",
+          "id": "1",
+          "uniqueIdentifier": "Pizza1ClassicMargherita",
+          "data": [
+            "Thin crust",
+            "Topped with tomato sauce, mozzarella, and basil"
+          ]
+        },
+        {
+          "Brand": "PepperoniDeluxe",
+          "id": "2",
+          "uniqueIdentifier": "Pizza2PepperoniDeluxe",
+          "data": [
+            "Loaded with pepperoni",
+            "Irresistible combination of flavors"
+          ]
+        },
+        {
+          "Brand": "VegetarianSupreme",
+          "id": "3",
+          "uniqueIdentifier": "Pizza3VegetarianSupreme",
+          "data": [
+            "Abundance of fresh vegetables",
+            "Perfect for vegetarians"
+          ]
+        }
+      ]
+    },
+    {
+      "ItemName": "Sweets",
+      "Varieties": [
+        {
+          "Brand": "DecadentChocolates",
+          "id": "1",
+          "uniqueIdentifier": "Sweets1DecadentChocolates",
+          "data": [
+            "Indulgent chocolate treats",
+            "Smooth and velvety"
+          ]
+        },
+        {
+          "Brand": "AssortedCandies",
+          "id": "2",
+          "uniqueIdentifier": "Sweets2AssortedCandies",
+          "data": [
+            "A mix of fruity flavors",
+            "Fun and colorful"
+          ]
+        },
+        {
+          "Brand": "ArtisanalPastries",
+          "id": "3",
+          "uniqueIdentifier": "Sweets3ArtisanalPastries",
+          "data": [
+            "Handcrafted delights",
+            "Delicate and delectable"
+          ]
         }
       ]
     }

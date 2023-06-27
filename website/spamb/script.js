@@ -11,6 +11,8 @@ var allStores = jsonToArray()
 var userLat = null;
 var userLon = null;
 
+var shoppingList = []
+
 searchInput.addEventListener('input', updateDropdownMenu);
 //searchInput.addEventListener('click', showClosest);
 document.addEventListener('click', hideDropdownMenu);
@@ -120,25 +122,36 @@ async function updateItemMenu(StoreUUN) {
     grocery.forEach(result => {
         const ul = document.createElement('ul');
         ul.textContent = result;
-        ul.addEventListener('click', () => {
+        ul.addEventListener('click', async () => {
+            ul.style.fontWeight = "bold"
             liElements = ul.querySelectorAll('li')
-            
+
             hideOtherMenus(ul)
 
             liElements.forEach(li => {
                 ul.removeChild(li)
             })
 
-            fullGrocery = getGroceryTypes(ul.textContent)
-            console.log(fullGrocery)
+
+            await getGroceryTypes(ul.textContent).then(array => {
+                fullGrocery = array
+            })
+
 
             fullGrocery.forEach(element => {
                 const li = document.createElement('li');
                 const button = document.createElement('button')
-    
+
+                li.className = "groceryBrands"
                 button.textContent = "+"
                 button.className = "itemListButton"
-    
+
+                button.onclick = function (event) {
+                    shoppingList.push(button.parentElement.textContent.slice(0, -1))
+                    ul.removeChild(li)
+                    console.log(shoppingList)
+                }
+
                 li.textContent = element[0]
                 li.appendChild(button)
                 ul.appendChild(li)
@@ -152,11 +165,12 @@ async function updateItemMenu(StoreUUN) {
 function hideOtherMenus(ul) {
 
     itemList.childNodes.forEach(element => {
-        if(element !== ul) {
+        if (element !== ul) {
             liElement = element.querySelectorAll('li')
             liElement.forEach(li => {
                 element.removeChild(li)
             })
+            element.style.fontWeight = "normal"
         }
     })
 }
@@ -177,7 +191,7 @@ async function getGroceryUniqueIdentifier(StoreUUN) {
 }
 
 async function getGrocery(StoreUUN) {
-    const regex = /^[^0-9]*/;
+    const regex = /\d/;
     var newGrocery = [];
 
     try {
@@ -185,13 +199,12 @@ async function getGrocery(StoreUUN) {
         if (grocery === undefined) {
             return;
         }
-
-        grocery.forEach(element => {
-            const newString = element.match(regex);
-            if (newString) {
-                newGrocery.push(newString[0]);
-            }
-        });
+        for (let i = 0; i < grocery[0].length; i++) {
+            let element = grocery[0][i].toString(); // Convert element to string
+            const match = element.search(regex);
+            const result = match !== -1 ? element.substring(0, match) : element;
+            newGrocery.push(result);
+        }
     } catch (error) {
         console.error(error);
     }
@@ -200,28 +213,31 @@ async function getGrocery(StoreUUN) {
     return newList;
 }
 
-async function getGroceryTypes(grocery) {
+function getGroceryTypes(grocery) {
     try {
-      const response = await fetch("../json/groceries.json");
-      const data = await response.json();
-  
-      const list = [];
-      data.grocery.forEach((element) => {
-        if (element.ItemName.toLowerCase() === grocery.toLowerCase()) {
-          element.Varieties.forEach((variety) => {
-            const item = [];
-            item.push(variety.Brand);
-            item.push(variety.nutriScore);
-            item.push(variety.data);
-            list.push(item);
-          });
-        }
-      });
-  
-      return list;
+        return fetch("../json/groceries.json")
+            .then(response => response.json())
+            .then(data => {
+                const list = [];
+                data.grocery.forEach((element) => {
+                    if (element.ItemName.toLowerCase() === grocery.toLowerCase()) {
+                        element.Varieties.forEach((variety) => {
+                            const item = [];
+                            item.push(variety.Brand);
+                            item.push(variety.nutriScore);
+                            item.push(variety.data);
+                            list.push(item);
+                        });
+                    }
+                });
+                return list;
+            })
+            .catch(error => {
+                console.error(error);
+                return []; // Return an empty array in case of an error
+            });
     } catch (error) {
-      console.error(error);
-      return []; // Return an empty array in case of an error
+        console.error(error);
+        return []; // Return an empty array in case of an error
     }
-  }
-  
+}
