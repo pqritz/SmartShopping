@@ -119,6 +119,7 @@ async function updateItemMenu(StoreUUN) {
     if (grocery === null) {
         return
     }
+    console.log(grocery)
     grocery.forEach(result => {
         const ul = document.createElement('ul');
         ul.textContent = result;
@@ -126,11 +127,14 @@ async function updateItemMenu(StoreUUN) {
             ul.style.fontWeight = "bold"
             liElements = ul.querySelectorAll('li')
 
-            hideOtherMenus(ul)
+            grocery = await getGroceryUniqueIdentifier(ul.textContent)
+
+            /*hideOtherMenus(ul)
 
             liElements.forEach(li => {
                 ul.removeChild(li)
             })
+
 
 
             await getGroceryTypes(ul.textContent).then(array => {
@@ -155,7 +159,7 @@ async function updateItemMenu(StoreUUN) {
                 li.textContent = element[0]
                 li.appendChild(button)
                 ul.appendChild(li)
-            })
+            })*/
         });
         itemList.appendChild(ul);
     });
@@ -196,6 +200,8 @@ async function getGrocery(StoreUUN) {
 
     try {
         const grocery = await getGroceryUniqueIdentifier(StoreUUN);
+        return getGrocery
+        /*
         if (grocery === undefined) {
             return;
         }
@@ -204,13 +210,13 @@ async function getGrocery(StoreUUN) {
             const match = element.search(regex);
             const result = match !== -1 ? element.substring(0, match) : element;
             newGrocery.push(result);
-        }
+        }*/
     } catch (error) {
         console.error(error);
     }
 
-    const newList = Array.from(new Set(newGrocery));
-    return newList;
+    //const newList = Array.from(new Set(newGrocery));
+    //return newList;
 }
 
 function getGroceryTypes(grocery) {
@@ -239,5 +245,29 @@ function getGroceryTypes(grocery) {
     } catch (error) {
         console.error(error);
         return []; // Return an empty array in case of an error
+    }
+}
+
+async function runScript(pathToImage, points, color, size, pathOut, fontSize) {
+    const path = "../../imageEditor/main.py"
+    const scriptArgs = [pathToImage, points, color, size, pathOut, fontSize]
+
+    try {
+        const response = await fetch(pythonEndpoint, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(scriptArgs)
+        });
+
+        if (!response.ok) {
+            throw new Error(`Error: ${response.status} ${response.statusText}`);
+        }
+
+        const output = await response.text();
+        console.log('Python script output:', output);
+    } catch (error) {
+        console.error('An error occurred:', error);
     }
 }
