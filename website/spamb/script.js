@@ -248,26 +248,74 @@ function getGroceryTypes(grocery) {
     }
 }
 
-async function runScript(pathToImage, points, color, size, pathOut, fontSize) {
-    const path = "../../imageEditor/main.py"
-    const scriptArgs = [pathToImage, points, color, size, pathOut, fontSize]
+function addImage() {
 
-    try {
-        const response = await fetch(pythonEndpoint, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(scriptArgs)
-        });
+}
 
-        if (!response.ok) {
-            throw new Error(`Error: ${response.status} ${response.statusText}`);
+
+function addMarkerToImage(path, points, color, size, fontSize) {
+    const image = new Image();
+    image.onload = function () {
+        const canvas = document.createElement('canvas');
+        canvas.width = image.width;
+        canvas.height = image.height;
+        const context = canvas.getContext('2d');
+
+        context.drawImage(image, 0, 0);
+
+        for (const p of points) {
+            addMarker(context, p, color, size, '', [0, 0], fontSize);
         }
 
-        const output = await response.text();
-        console.log('Python script output:', output);
-    } catch (error) {
-        console.error('An error occurred:', error);
-    }
+        const imageDataURL = canvas.toDataURL('image/png');
+
+        const imgElement = document.createElement('img');
+        imgElement.src = imageDataURL;
+
+        document.body.appendChild(imgElement);
+    };
+
+    image.src = path;
+}
+
+function addMarker(context, position, color, size, text, textPos, fontSize) {
+    const [markerX, markerY] = position;
+    const [textX, textY] = textPos;
+
+    context.font = `${fontSize}px Arial`;
+    context.fillStyle = 'white';
+    context.fillText(text, textX, textY);
+
+    const { width, height } = context.canvas;
+    const markerRadius = size * Math.min(width, height);
+    const markerCenterX = markerX * width;
+    const markerCenterY = markerY * height;
+    const markerStartAngle = Math.PI;
+    const markerEndAngle = 0;
+
+    context.beginPath();
+    context.arc(markerCenterX, markerCenterY, markerRadius, markerStartAngle, markerEndAngle);
+    context.fillStyle = color;
+    context.fill();
+
+    const triangleSize = size * Math.min(width, height);
+
+    context.beginPath();
+    context.moveTo(markerCenterX, markerCenterY + triangleSize * 2);
+    context.lineTo(markerCenterX - triangleSize, markerCenterY);
+    context.lineTo(markerCenterX + triangleSize, markerCenterY);
+    context.closePath();
+    context.fillStyle = color;
+    context.fill();
+}
+
+function test() {
+    // Example usage
+    const imagePath = '../json/stores/Lidl, Nuernberger Str., Altdorf bei Nuernberg.png';
+    const markerPoints = [[0.5, 0.5], [0.3, 0.7], [1, 1], [0.8, 0.2]];
+    const markerColor = '#FF0000';
+    const markerSize = 0.02;
+    const markerFontSize = 18;
+
+    addMarkerToImage(imagePath, markerPoints, markerColor, markerSize, markerFontSize);
 }
