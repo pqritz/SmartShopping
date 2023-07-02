@@ -4,6 +4,7 @@ const addItemMenu = document.getElementById("add-item-container");
 const body = document.getElementById("bodyContainer");
 const itemList = document.getElementById("items")
 const itemSearch = document.getElementById("search-item-input")
+const submitButton = document.getElementById('submit')
 
 var allStores = jsonToArray()
 
@@ -12,6 +13,24 @@ var shoppingList = []
 searchInput.addEventListener('input', updateDropdownMenu);
 document.addEventListener('click', hideDropdownMenu);
 itemSearch.addEventListener('input', updateItemList);
+itemSearch.addEventListener('focus', disableZoomOnInputFocus)
+itemSearch.addEventListener('blur', enableZoomOnInputBlur)
+submitButton.addEventListener('click', renderImage)
+
+function disableZoomOnInputFocus() {
+    var viewportMeta = document.querySelector('meta[name="viewport"]');
+    if (viewportMeta) {
+        viewportMeta.content = "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0";
+    }
+}
+
+// Enable zooming after input field blur
+function enableZoomOnInputBlur() {
+    var viewportMeta = document.querySelector('meta[name="viewport"]');
+    if (viewportMeta) {
+        viewportMeta.content = "width=device-width, initial-scale=1";
+    }
+}
 
 async function updateItemList() {
     var StoreUUN = searchInput.value
@@ -165,11 +184,17 @@ async function updateItemMenu(StoreUUN) {
                 button.ontoggle
                 span.textContent = "-"
                 shoppingList.push(button.parentElement.textContent.slice(0, -1))
+                if (shoppingList.length != 0) {
+                    submitButton.style.display = 'initial'
+                }
             } else {
                 button.value = "true"
                 button.style.backgroundColor = "#4CAF50"
                 span.textContent = "+"
                 shoppingList.splice(shoppingList.indexOf(button.parentElement.textContent.slice(0, -1)), 1)
+                if (shoppingList.length == 0) {
+                    submitButton.style.display = 'none'
+                }
             }
 
             itemSearch.value = ""
