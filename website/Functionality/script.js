@@ -1,37 +1,52 @@
 const searchInput = document.getElementById('search-input');
 const dropdownMenu = document.getElementById('dropdown-menu');
 const addItemMenu = document.getElementById("add-item-container");
-const button = document.getElementById("cta-button");
-const fBox = document.getElementById("FunctionalityBox");
 const body = document.getElementById("bodyContainer");
 const itemList = document.getElementById("items")
+const itemSearch = document.getElementById("search-item-input")
 
-// Mock data for demonstration purposes
 var allStores = jsonToArray()
-var userLat = null;
-var userLon = null;
 
 var shoppingList = []
 
 searchInput.addEventListener('input', updateDropdownMenu);
-//searchInput.addEventListener('click', showClosest);
 document.addEventListener('click', hideDropdownMenu);
-button.addEventListener('click', function (event) {
-    event.preventDefault();
-    fBox.style.display = "flex"
-    document.body.style.opacity = 0.8
+itemSearch.addEventListener('input', updateItemList);
 
-    for (let i = 0; i < fBox.children.length; i++) {
-        fBox.children[i].style.display = 'initial'
+async function updateItemList() {
+    var StoreUUN = searchInput.value
+    var filtered = allStores.filter(item => item.uun.toLowerCase() == StoreUUN.toLowerCase())
+    if (filtered.length != 1) {
+        return
     }
-});
 
+    grocery = await getGrocery(StoreUUN)
+    if (grocery === null) {
+        return
+    }
 
-window.onload = function () {
-    getLocation()
-};
+    var filteredResults = undefined
+
+    if (itemSearch.value.length > 0) {
+        filteredResults = grocery.filter(item => item.toLowerCase().includes(itemSearch.value.toLowerCase()));
+    } else {
+        filteredResults = grocery
+    }
+
+    Array.from(itemList.children).forEach(element => {
+        if (filteredResults.includes(element.textContent.slice(0, -1).toLowerCase())) {
+            element.style.display = 'block'
+        } else {
+            element.style.display = 'none'
+        }
+    })
+
+    console.log(shoppingList)
+}
 
 function updateDropdownMenu() {
+    itemSearch.style.display = 'none'
+    itemSearch.style.pointerEvents = 'none'
     const searchTerm = searchInput.value;
     // You can perform your search logic here using the searchTerm
 
@@ -68,27 +83,10 @@ function updateDropdownMenu() {
 
 function hideDropdownMenu() {
     dropdownMenu.style.display = 'none';
+    itemSearch.style.display = 'initial'
+    itemSearch.style.pointerEvents = 'initial'
 }
 
-function showClosest() {
-    getLocation()
-    if (userLon == null && userLat == null) {
-        alert("It seems that we couldnt get your Location")
-    }
-}
-
-function getLocation() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
-    } else {
-        console.log("couldnt")
-    }
-}
-
-function showPosition(position) {
-    userLat = position.coords.latitude;
-    userLon = position.coords.longitude;
-}
 
 function jsonToArray() {
     var storesFromArray = []
@@ -110,80 +108,87 @@ function getJson() {
     return fetch("../json/Stores.json");
 }
 
+function makeUpperCase(str) {
+    const indexOfFirst = str.search(/[a-zA-Z]/)
+    if (indexOfFirst !== -1) {
+        const modifiedStr = str.slice(0, indexOfFirst) + str.charAt(indexOfFirst).toUpperCase() + str.slice(indexOfFirst + 1);
+        return modifiedStr
+    } else {
+        return str
+    }
+}
+
 async function updateItemMenu(StoreUUN) {
     while (itemList.firstChild) {
         itemList.removeChild(itemList.firstChild)
     }
-    StoreUUN = "Lidl, Nuernberger Str., Altdorf bei Nuernberg"
     grocery = await getGrocery(StoreUUN)
     if (grocery === null) {
         return
     }
+
+
+    const searchTerm = itemSearch.value
+
+    var filteredResults = undefined
+
+    if (searchTerm.length > 0) {
+        filteredResults = grocery.filter(item => item.toLowerCase().includes(searchTerm.toLowerCase()));
+    } else {
+        filteredResults = grocery
+    }
+
+
     grocery.forEach(result => {
         const ul = document.createElement('ul');
-        ul.textContent = result.charAt(0).toUpperCase() + result.slice(1);
+        ul.calssName = "ulGroceries"
+        ul.textContent = makeUpperCase(result);
         ul.addEventListener('click', async () => {
             //ul.style.fontWeight = "bold"
             liElements = ul.querySelectorAll('li')
 
             grocery = await getGroceryUniqueIdentifier(ul.textContent)
 
-            /*hideOtherMenus(ul)
-
-            liElements.forEach(li => {
-                ul.removeChild(li)
-            })
-
-
-
-            await getGroceryTypes(ul.textContent).then(array => {
-                fullGrocery = array
-            })
-
-
-            fullGrocery.forEach(element => {
-                const li = document.createElement('li');
-                const button = document.createElement('button')
-
-                li.className = "groceryBrands"
-                button.textContent = "+"
-                button.className = "itemListButton"
-
-                button.onclick = function (event) {
-                    shoppingList.push(button.parentElement.textContent.slice(0, -1))
-                    ul.removeChild(li)
-                    console.log(shoppingList)
-                }
-
-                li.textContent = element[0]
-                li.appendChild(button)
-                ul.appendChild(li)
-            })*/
         });
         const button = document.createElement('button')
-        button.textContent = "+"
+        const span = document.createElement("span")
+        button.value = "true"
+        span.textContent = "+"
+        button.appendChild(span)
         button.className = "itemListButton"
 
-        button.onclick = function(event) {
-            shoppingList.push(button.parentElement.textContent.slice(0, -1))
+        button.onclick = function (event) {
+
+            if (button.value === "true") {
+                button.value = "false"
+                button.style.backgroundColor = "#AF504C"
+                button.ontoggle
+                span.textContent = "-"
+                shoppingList.push(button.parentElement.textContent.slice(0, -1))
+            } else {
+                button.value = "true"
+                button.style.backgroundColor = "#4CAF50"
+                span.textContent = "+"
+                shoppingList.splice(shoppingList.indexOf(button.parentElement.textContent.slice(0, -1)), 1)
+            }
+
+            itemSearch.value = ""
+            Array.from(itemList.children).forEach(element => {
+                element.style.display = 'block'
+
+            })
         }
+
+        if (!filteredResults.includes(result)) {
+            ul.style.display = 'none'
+        } else {
+            ul.style.display = 'block'
+        }
+
         ul.appendChild(button)
         itemList.appendChild(ul);
     });
 
-}
-
-function hideOtherMenus(ul) {
-
-    itemList.childNodes.forEach(element => {
-        if (element !== ul) {
-            liElement = element.querySelectorAll('li')
-            liElement.forEach(li => {
-                element.removeChild(li)
-            })
-            element.style.fontWeight = "normal"
-        }
-    })
 }
 
 async function getGroceryUniqueIdentifier(StoreUUN) {
@@ -226,34 +231,6 @@ async function getGrocery(StoreUUN) {
     //return newList;
 }
 
-function getGroceryTypes(grocery) {
-    try {
-        return fetch("../json/groceries.json")
-            .then(response => response.json())
-            .then(data => {
-                const list = [];
-                data.grocery.forEach((element) => {
-                    if (element.ItemName.toLowerCase() === grocery.toLowerCase()) {
-                        element.Varieties.forEach((variety) => {
-                            const item = [];
-                            item.push(variety.Brand);
-                            item.push(variety.nutriScore);
-                            item.push(variety.data);
-                            list.push(item);
-                        });
-                    }
-                });
-                return list;
-            })
-            .catch(error => {
-                console.error(error);
-                return []; // Return an empty array in case of an error
-            });
-    } catch (error) {
-        console.error(error);
-        return []; // Return an empty array in case of an error
-    }
-}
 
 function addMarkerToImage(path, points, color, size, fontSize) {
     const image = new Image();
