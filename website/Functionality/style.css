@@ -245,7 +245,7 @@ header {
         background-color: white;
         font-family: Arial, Helvetica, sans-serif;
         font-size: 35px;
-        box-shadow: rgba(0, 0, 0, 0.4) 0 0.5px 10px 0px;
+        box-shadow: 0 0.5px 10px 0px rgba(0, 0, 0, 0.4) ;
         background-color: rgba(248, 245, 250, 1);
     }
 
@@ -306,7 +306,7 @@ header {
         border: 0px solid #ccc;
         font-family: Arial, Helvetica, sans-serif;
         font-size: 22px;
-        box-shadow: rgba(0, 0, 0, 0.15) 0 0.5px 10px 0px;
+        box-shadow: 0 0.5px 10px 0px rgba(0, 0, 0, 0.15);
         border-radius: 20px;
     }
 
@@ -318,7 +318,7 @@ header {
         border: 0px solid #ccc;
         font-family: Arial, Helvetica, sans-serif;
         font-size: 22px;
-        box-shadow: rgba(0, 0, 0, 0.15) 0 0.5px 10px 0px
+        box-shadow: 0 0.5px 10px 0px rgba(0, 0, 0, 0.15);
     }
 
     #dropdown-menu li {
