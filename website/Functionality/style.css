@@ -381,3 +381,33 @@ header {
 
     }
 }
+
+.back-button {
+    background-color: rgba(128, 128, 128, 0.7);
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    font-size: 14px;
+    border-radius: 15px;
+    position: absolute;
+    cursor: pointer;
+    z-index: 9999;
+    /* Ensures the button appears above other elements */
+    margin-left: 1%;
+    margin-top: 1%;
+}
+
+.back-button span.arrow {
+    position: relative;
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin-right: 6px;
+    border-top: 2px solid white;
+    border-right: 2px solid white;
+    transform: rotate(-45deg);
+}
+
+.back-button:hover {
+    background-color: rgba(128, 128, 128, 0.9);
+}

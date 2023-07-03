@@ -5,6 +5,7 @@ const body = document.getElementById("bodyContainer");
 const itemList = document.getElementById("items")
 const itemSearch = document.getElementById("search-item-input")
 const submitButton = document.getElementById('submit')
+const backButton = document.getElementById("back-button")
 
 var allStores = jsonToArray()
 
@@ -16,6 +17,9 @@ itemSearch.addEventListener('input', updateItemList);
 itemSearch.addEventListener('focus', disableZoomOnInputFocus)
 itemSearch.addEventListener('blur', enableZoomOnInputBlur)
 submitButton.addEventListener('click', renderImage)
+backButton.addEventListener('click', function (event) {
+    window.location.href = '../../MainPage.html'
+})
 
 function disableZoomOnInputFocus() {
     var viewportMeta = document.querySelector('meta[name="viewport"]');
@@ -45,22 +49,21 @@ async function updateItemList() {
     }
 
     var filteredResults = undefined
+    groceryKeys = Object.keys(grocery)
 
     if (itemSearch.value.length > 0) {
-        filteredResults = grocery.filter(item => item.toLowerCase().includes(itemSearch.value.toLowerCase()));
+        filteredResults = groceryKeys.filter(item => item.toLowerCase().includes(itemSearch.value.toLowerCase()));
     } else {
-        filteredResults = grocery
+        filteredResults = groceryKeys
     }
 
     Array.from(itemList.children).forEach(element => {
-        if (filteredResults.includes(element.textContent.slice(0, -1).toLowerCase())) {
+        if (filteredResults.includes(element.textContent.slice(2, -1).toLowerCase())) {
             element.style.display = 'block'
         } else {
             element.style.display = 'none'
         }
     })
-
-    console.log(shoppingList)
 }
 
 function updateDropdownMenu() {
@@ -146,22 +149,21 @@ async function updateItemMenu(StoreUUN) {
         return
     }
 
-
+    groceryKeys = Object.keys(grocery)
     const searchTerm = itemSearch.value
-
     var filteredResults = undefined
 
     if (searchTerm.length > 0) {
-        filteredResults = grocery.filter(item => item.toLowerCase().includes(searchTerm.toLowerCase()));
+        filteredResults = groceryKeys.filter(item => item.toLowerCase().includes(searchTerm.toLowerCase()));
     } else {
-        filteredResults = grocery
+        filteredResults = groceryKeys
     }
 
 
-    grocery.forEach(result => {
+    groceryKeys.forEach(result => {
         const ul = document.createElement('ul');
         ul.calssName = "ulGroceries"
-        ul.textContent = makeUpperCase(result);
+        ul.textContent = grocery[result].emoji + makeUpperCase(result);
         ul.addEventListener('click', async () => {
             //ul.style.fontWeight = "bold"
             liElements = ul.querySelectorAll('li')
@@ -238,22 +240,10 @@ async function getGrocery(StoreUUN) {
     try {
         const grocery = await getGroceryUniqueIdentifier(StoreUUN);
         return grocery
-        /*
-        if (grocery === undefined) {
-            return;
-        }
-        for (let i = 0; i < grocery[0].length; i++) {
-            let element = grocery[0][i].toString(); // Convert element to string
-            const match = element.search(regex);
-            const result = match !== -1 ? element.substring(0, match) : element;
-            newGrocery.push(result);
-        }*/
+
     } catch (error) {
         console.error(error);
     }
-
-    //const newList = Array.from(new Set(newGrocery));
-    //return newList;
 }
 
 
@@ -273,10 +263,41 @@ function addMarkerToImage(path, points, color, size, fontSize) {
 
         const imageDataURL = canvas.toDataURL('image/png');
 
-        const imgElement = document.createElement('img');
-        imgElement.src = imageDataURL;
+        const overlayImage = document.createElement('img');
+        const button = document.createElement('button')
+        const span = document.createElement('span')
 
-        document.body.appendChild(imgElement);
+        overlayImage.src = imageDataURL;
+        overlayImage.alt = 'Overlay Image';
+        overlayImage.id = 'overlayImage';
+        overlayImage.style.position = 'fixed';
+        overlayImage.style.top = '0';
+        overlayImage.style.left = '0';
+        overlayImage.style.width = '100%';
+        overlayImage.style.height = '100%';
+        overlayImage.style.objectFit = 'contain';
+        overlayImage.style.objectPosition = 'center';
+        overlayImage.style.zIndex = '9999';
+
+        // Check if the image doesn't cover the entire site
+        if (window.innerWidth > overlayImage.naturalWidth || window.innerHeight > overlayImage.naturalHeight) {
+            // Add a white background behind the image
+            overlayImage.style.backgroundColor = 'white';
+        }
+
+
+        button.className = 'back-button'
+        button.textContent = ' Back'
+        button.addEventListener('click', function (event) {
+            overlayImage.remove()
+        })
+
+        span.className = 'arrow'
+
+        // Append the overlay image element to the document body
+        button.prepend(span)
+        document.body.appendChild(overlayImage);
+        document.body.appendChild(button)
     };
 
     image.src = path;
@@ -313,13 +334,73 @@ function addMarker(context, position, color, size, text, textPos, fontSize) {
     context.fill();
 }
 
-function renderImage() {
-    // Example usage
+function getImageSize(imageUrl) {
+    return new Promise((resolve, reject) => {
+        const img = new Image();
+
+        img.onload = function () {
+            resolve({ width: this.width, height: this.height});
+        };
+
+        img.onerror = function () {
+            reject(new Error("Failed to load the image"));
+        };
+
+        img.src = imageUrl;
+    });
+}
+
+async function renderImage() {
+
+    var StoreUUN = searchInput.value
+    var filtered = allStores.filter(item => item.uun.toLowerCase() == StoreUUN.toLowerCase())
+    grocery = await getGrocery(StoreUUN)
+
+    if (filtered.length != 1) {
+        return
+    }
+    if (grocery === null) {
+        return
+    }
+    groceryKeys = Object.keys(grocery).map(key => key.toLowerCase())
+
     const imagePath = '../json/stores/Lidl, Nuernberger Str., Altdorf bei Nuernberg.png';
-    const markerPoints = [[0.5, 0.5], [0.3, 0.7], [1, 1], [0.8, 0.2]];
     const markerColor = '#FF0000';
     const markerSize = 0.02;
     const markerFontSize = 18;
 
-    addMarkerToImage(imagePath, markerPoints, markerColor, markerSize, markerFontSize);
+    getImageSize(imagePath)
+        .then(({ width, height }) => {
+            var shelves = []
+            var points = []
+        
+            fetch('../json/Stores.json').then(response => {
+                return response.json()
+            }).then(data => {
+                storeIndex = allStores.findIndex(item => item.uun.toLowerCase() == StoreUUN.toLowerCase())
+                shoppingList.forEach(element => {
+                    element = element.substring(2)
+                    if (groceryKeys.includes(element.toLowerCase())) {
+                        shelfNumber = grocery[element.toLowerCase()].shelf
+                        if (!shelves.includes(shelfNumber)) {
+                            shelves.push(shelfNumber)
+                        }
+                    }
+                })
+                console.log(data.Stores[storeIndex].shelves)
+                shelves.forEach(element => {
+                    var point = []
+                    var xCoord = data.Stores[storeIndex].shelves[element].x / width
+                    var yCoord = data.Stores[storeIndex].shelves[element].y / height
+        
+                    point.push(xCoord)
+                    point.push(yCoord)
+                    points.push(point)
+                })
+                addMarkerToImage(imagePath, points, markerColor, markerSize, markerFontSize);
+            })
+        })
+        .catch(error => {
+            console.error(error);
+        });
 }
