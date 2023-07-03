@@ -247,7 +247,7 @@ async function getGrocery(StoreUUN) {
 }
 
 
-function addMarkerToImage(path, points, color, size, fontSize) {
+function addMarkerToImage(path, points, emojis, color, size, fontSize) {
     const image = new Image();
     image.onload = function () {
         const canvas = document.createElement('canvas');
@@ -257,8 +257,8 @@ function addMarkerToImage(path, points, color, size, fontSize) {
 
         context.drawImage(image, 0, 0);
 
-        for (const p of points) {
-            addMarker(context, p, color, size, '', [0, 0], fontSize);
+        for(let i = 0; i < points.length; i++) {
+            addMarker(context, points[i], color, size, emojis[i], [0, 0], fontSize);
         }
 
         const imageDataURL = canvas.toDataURL('image/png');
@@ -304,13 +304,15 @@ function addMarkerToImage(path, points, color, size, fontSize) {
 }
 
 function addMarker(context, position, color, size, text, textPos, fontSize) {
-    const [markerX, markerY] = position;
+    var [markerX, markerY] = position;
+    markerY -= 1.5 * size;
     const [textX, textY] = textPos;
 
     context.font = `${fontSize}px Arial`;
     context.fillStyle = 'white';
-    context.fillText(text, textX, textY);
-
+    context.textAlign = 'center';
+    context.textBaseline = 'middle';
+    
     const { width, height } = context.canvas;
     const markerRadius = size * Math.min(width, height);
     const markerCenterX = markerX * width;
@@ -318,21 +320,37 @@ function addMarker(context, position, color, size, text, textPos, fontSize) {
     const markerStartAngle = Math.PI;
     const markerEndAngle = 0;
 
+    // Draw the red circle
     context.beginPath();
     context.arc(markerCenterX, markerCenterY, markerRadius, markerStartAngle, markerEndAngle);
     context.fillStyle = color;
     context.fill();
 
+    // Draw the triangle
     const triangleSize = size * Math.min(width, height);
 
     context.beginPath();
-    context.moveTo(markerCenterX, markerCenterY + triangleSize * 2);
+    context.moveTo(markerCenterX, markerCenterY + triangleSize * 1.8);
     context.lineTo(markerCenterX - triangleSize, markerCenterY);
     context.lineTo(markerCenterX + triangleSize, markerCenterY);
     context.closePath();
     context.fillStyle = color;
     context.fill();
+
+    // Draw the white circle above the triangle
+    const innerRadius = triangleSize * 0.8; // Adjust the value as needed
+    context.beginPath();
+    context.arc(markerCenterX, markerCenterY - triangleSize / 8, innerRadius, 0, 2 * Math.PI);
+    context.fillStyle = 'white';
+    context.fill();
+
+    // Draw the text
+    context.fillStyle = 'black'; // Adjust the text color as needed
+    context.fillText(text, markerCenterX, markerCenterY - triangleSize / 8);
+
 }
+
+
 
 function getImageSize(imageUrl) {
     return new Promise((resolve, reject) => {
@@ -364,15 +382,16 @@ async function renderImage() {
     }
     groceryKeys = Object.keys(grocery).map(key => key.toLowerCase())
 
-    const imagePath = '../json/stores/Lidl, Nuernberger Str., Altdorf bei Nuernberg.png';
+    const imagePath = '../json/stores/betterMap.png';
     const markerColor = '#FF0000';
-    const markerSize = 0.02;
+    const markerSize = 0.025;
     const markerFontSize = 18;
 
     getImageSize(imagePath)
         .then(({ width, height }) => {
             var shelves = []
             var points = []
+            var emojis = []
         
             fetch('../json/Stores.json').then(response => {
                 return response.json()
@@ -382,12 +401,13 @@ async function renderImage() {
                     element = element.substring(2)
                     if (groceryKeys.includes(element.toLowerCase())) {
                         shelfNumber = grocery[element.toLowerCase()].shelf
+                        var emoji = grocery[element.toLowerCase()].emoji
                         if (!shelves.includes(shelfNumber)) {
                             shelves.push(shelfNumber)
                         }
+                        emojis.push(emoji)
                     }
                 })
-                console.log(data.Stores[storeIndex].shelves)
                 shelves.forEach(element => {
                     var point = []
                     var xCoord = data.Stores[storeIndex].shelves[element].x / width
@@ -397,7 +417,7 @@ async function renderImage() {
                     point.push(yCoord)
                     points.push(point)
                 })
-                addMarkerToImage(imagePath, points, markerColor, markerSize, markerFontSize);
+                addMarkerToImage(imagePath, points, emojis, markerColor, markerSize, markerFontSize);
             })
         })
         .catch(error => {
